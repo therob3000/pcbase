@@ -10,3 +10,5 @@ C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csproj.GenerateResource.Cache
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
+C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csprojResolveAssemblyReference.cache
+C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.ClientForm.resources
