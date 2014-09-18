@@ -4,11 +4,11 @@ c:\users\anubis\documents\visual studio 2010\Projects\AnubisClient\AnubisClient\
 c:\users\anubis\documents\visual studio 2010\Projects\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csproj.GenerateResource.Cache
 c:\users\anubis\documents\visual studio 2010\Projects\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
 c:\users\anubis\documents\visual studio 2010\Projects\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
-C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe
-C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.pdb
+C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.ClientForm.resources
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.Properties.Resources.resources
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csproj.GenerateResource.Cache
+C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe
+C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.pdb
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
 C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csprojResolveAssemblyReference.cache
-C:\Users\ANUBIS\Desktop\Anubis Project\Git Repo\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.ClientForm.resources

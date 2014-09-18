@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Kinect;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.Speech.AudioFormat;
+using Microsoft.Speech.Recognition;
 
 namespace AnubisClient
 {
@@ -192,12 +194,15 @@ namespace AnubisClient
             }
         }
 
-#endregion
+        #endregion
 
         private KinectSensor sensor;
+        private SpeechRecognitionEngine speechEngine;
+
 
         public KinectInterface()
         {
+            #region Init Joints
             // Init joint position objects
             _spineBasePos = new Point3f();
             _spineMidPos = new Point3f();
@@ -219,6 +224,7 @@ namespace AnubisClient
             _ankleRightPos = new Point3f();
             _footRightPos = new Point3f();
             _spineShoulderPos = new Point3f();
+            #endregion
 
             // Init sensor
             //Indexes each connected sensor and starts one
@@ -226,7 +232,7 @@ namespace AnubisClient
             {
                 if (sense.Status == KinectStatus.Connected)
                 {
-                    
+
                     sensor = sense;
                     break;
                 }
@@ -237,6 +243,7 @@ namespace AnubisClient
                 //Begin Skeleton Frame and register with event handler
                 sensor.SkeletonStream.Enable();
                 sensor.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(this.SensorSkeletonFrameReady);
+
                 try { sensor.Start(); }
                 catch (IOException)
                 {
@@ -248,6 +255,33 @@ namespace AnubisClient
             if (sensor == null)
             {
                 MessageBox.Show("No Kinect");
+            }
+
+            //Initialize Speech Engine
+            BootSpeechEngine();
+        }
+
+
+        /// <summary>
+        /// Init the speech engine for speech recognition
+        /// </summary>
+        private void BootSpeechEngine()
+        {
+            RecognizerInfo ri = GetKinectRecognizer();
+
+            if (null != ri)
+            {
+                this.speechEngine = new SpeechRecognitionEngine(ri.Id);
+
+                // Create a grammar from grammar definition XML file.
+                using (var memoryStream = new MemoryStream(Encoding.ASCII.GetBytes(Properties.Resources.SpeechGrammar)))
+                {
+                    var g = new Grammar(memoryStream);
+                    speechEngine.LoadGrammar(g);
+                }
+
+                speechEngine.SpeechRecognized += RespondToSpeechRecognized;
+                speechEngine.SpeechRecognitionRejected += SpeechRejected;
             }
         }
         /// <summary>
@@ -268,67 +302,203 @@ namespace AnubisClient
                     skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                 }
-            }
 
-            //Update joint position information
-            if (skeletons.Length != 0)
-            {
-                if (skeletons[0].TrackingState == SkeletonTrackingState.Tracked)
+                //Update joint position information
+                if (skeletons.Length != 0)
                 {
-                    JointCollection jnts = skeletons[0].Joints; // use joints from first skeleton
+                    if (skeletons[0].TrackingState == SkeletonTrackingState.Tracked)
+                    {
+                        JointCollection jnts = skeletons[0].Joints; // use joints from first skeleton
 
-                    // --Torso--
-                    //Spine Base
-                    _spineBasePos.update(jnts[JointType.HipCenter]);
-                    //Spine Mid
-                    _spineMidPos.update(jnts[JointType.Spine]);
-                    //Spine
-                    _spineShoulderPos.update(jnts[JointType.ShoulderCenter]);
-                    //Head
-                    _headPos.update(jnts[JointType.Head]);
+                        // --Torso--
+                        //Spine Base
+                        _spineBasePos.update(jnts[JointType.HipCenter]);
+                        //Spine Mid
+                        _spineMidPos.update(jnts[JointType.Spine]);
+                        //Spine
+                        _spineShoulderPos.update(jnts[JointType.ShoulderCenter]);
+                        //Head
+                        _headPos.update(jnts[JointType.Head]);
 
-                    //--Left Arm--
-                    //Shoulder
-                    _shoulderLeftPos.update(jnts[JointType.ShoulderLeft]);
-                    //Elbow
-                    _elbowLeftPos.update(jnts[JointType.ElbowLeft]);
-                    //Wrist
-                    _wristLeftPos.update(jnts[JointType.WristLeft]);
-                    //Hand
-                    _handLeftPos.update(jnts[JointType.HandLeft]);
+                        //--Left Arm--
+                        //Shoulder
+                        _shoulderLeftPos.update(jnts[JointType.ShoulderLeft]);
+                        //Elbow
+                        _elbowLeftPos.update(jnts[JointType.ElbowLeft]);
+                        //Wrist
+                        _wristLeftPos.update(jnts[JointType.WristLeft]);
+                        //Hand
+                        _handLeftPos.update(jnts[JointType.HandLeft]);
 
-                    //--Right Arm--
-                    //Shoulder
-                    _shoulderRightPos.update(jnts[JointType.ShoulderRight]);
-                    //Elbow
-                    _elbowRightPos.update(jnts[JointType.ElbowRight]);
-                    //Wrist
-                    _wristRightPos.update(jnts[JointType.WristRight]);
-                    //Hand
-                    _handRightPos.update(jnts[JointType.HandRight]);
+                        //--Right Arm--
+                        //Shoulder
+                        _shoulderRightPos.update(jnts[JointType.ShoulderRight]);
+                        //Elbow
+                        _elbowRightPos.update(jnts[JointType.ElbowRight]);
+                        //Wrist
+                        _wristRightPos.update(jnts[JointType.WristRight]);
+                        //Hand
+                        _handRightPos.update(jnts[JointType.HandRight]);
 
-                    //--Left Leg--
-                    //Hip
-                    _hipLeftPos.update(jnts[JointType.HipLeft]);
-                    //Knee
-                    _kneeLeftPos.update(jnts[JointType.KneeLeft]);
-                    //Ankle
-                    _ankleLeftPos.update(jnts[JointType.AnkleLeft]);
-                    //Foot
-                    _footLeftPos.update(jnts[JointType.FootLeft]);
+                        //--Left Leg--
+                        //Hip
+                        _hipLeftPos.update(jnts[JointType.HipLeft]);
+                        //Knee
+                        _kneeLeftPos.update(jnts[JointType.KneeLeft]);
+                        //Ankle
+                        _ankleLeftPos.update(jnts[JointType.AnkleLeft]);
+                        //Foot
+                        _footLeftPos.update(jnts[JointType.FootLeft]);
 
 
-                    //--Right Leg--
-                    //Hip
-                    _hipRightPos.update(jnts[JointType.HipRight]);
-                    //Knee
-                    _kneeRightPos.update(jnts[JointType.KneeRight]);
-                    //Ankle
-                    _ankleRightPos.update(jnts[JointType.AnkleRight]);
-                    //Foot
-                    _footRightPos.update(jnts[JointType.FootRight]);
+                        //--Right Leg--
+                        //Hip
+                        _hipRightPos.update(jnts[JointType.HipRight]);
+                        //Knee
+                        _kneeRightPos.update(jnts[JointType.KneeRight]);
+                        //Ankle
+                        _ankleRightPos.update(jnts[JointType.AnkleRight]);
+                        //Foot
+                        _footRightPos.update(jnts[JointType.FootRight]);
+                    }
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the metadata for the speech recognizer (acoustic model) most suitable to
+        /// process audio from Kinect device.
+        /// </summary>
+        /// <returns>
+        /// RecognizerInfo if found, <code>null</code> otherwise.
+        /// </returns>
+        private static RecognizerInfo GetKinectRecognizer()
+        {
+            foreach (RecognizerInfo recognizer in SpeechRecognitionEngine.InstalledRecognizers())
+            {
+                string value;
+                recognizer.AdditionalInfo.TryGetValue("Kinect", out value);
+                if ("True".Equals(value, StringComparison.OrdinalIgnoreCase) && "en-US".Equals(recognizer.Culture.Name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return recognizer;
+                }
+            }
+
+            return null;
+        }
+        
+        /// <summary>
+        /// Handler for recognized speech events.
+        /// </summary>
+        /// <param name="sender">object sending the event.</param>
+        /// <param name="e">event arguments.</param>
+        private void RespondToSpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            // Speech utterance confidence below which we treat speech as if it hadn't been heard
+            const double ConfidenceThreshold = 0.3;
+
+            if (e.Result.Confidence >= ConfidenceThreshold)
+            {
+                System.Speech.Synthesis.SpeechSynthesizer synth = new System.Speech.Synthesis.SpeechSynthesizer();
+                synth.SetOutputToDefaultAudioDevice();
+                switch (e.Result.Semantics.Value.ToString())
+                {
+                    case "ANUBIS READY":
+                        MessageBox.Show("You said it!");
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handler for rejected speech events.
+        /// </summary>
+        /// <param name="sender">object sending the event.</param>
+        /// <param name="e">event arguments.</param>
+        private void SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Allows external events to register to the skelton frame event
+        /// </summary>
+        /// <param name="EventHandler"></param>
+        public void RegisterSkeletonReadyEvent(Action<object, SkeletonFrameReadyEventArgs> EventHandler)
+        {
+            sensor.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(EventHandler);
+        }
+
+        /// <summary>
+        /// Starts the Kinect Camera Stream
+        /// </summary>
+        public void BeginSensorStream()
+        {
+            if (sensor != null)
+            {
+                sensor.Start();
+            }
+        }
+
+        /// <summary>
+        /// Stops the Kinect Camera Stream
+        /// </summary>
+        public void EndSensorStream()
+        {
+            if (sensor != null)
+            {
+                sensor.Stop();
+            }
+        }
+
+        /// <summary>
+        /// Starts the Kinect Speech Recognition
+        /// </summary>
+        public void startSpeech()
+        {
+
+
+            // For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model. 
+            // This will prevent recognition accuracy from degrading over time.
+            ////speechEngine.UpdateRecognizerSetting("AdaptationOn", 0);
+
+            speechEngine.SetInputToAudioStream(
+                sensor.AudioSource.Start(), new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
+            speechEngine.RecognizeAsync(RecognizeMode.Multiple);
+
+
+            System.Threading.Thread.Sleep(3000);
+
+            System.Speech.Synthesis.SpeechSynthesizer synth = new System.Speech.Synthesis.SpeechSynthesizer();
+            synth.SetOutputToDefaultAudioDevice();
+        }
+
+        /// <summary>
+        /// Ends the Kinect Speech Recognition
+        /// </summary>
+        public void stopSpeech()
+        {
+            speechEngine.RecognizeAsyncCancel();
+        }
+
+        /// <summary>
+        /// Allows External events to register to the Speech Recognized Event
+        /// </summary>
+        /// <param name="EventHandler"></param>
+        public void RegisterSpeechRecognized(Action<object, SpeechRecognizedEventArgs> EventHandler)
+        {
+             speechEngine.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(EventHandler);
+        }
+
+        /// <summary>
+        /// Allows External Events to register to the Speech Recognition Rejected Event
+        /// </summary>
+        /// <param name="EventHandler"></param>
+        public void RegisterSpeechRecognized(Action<object, SpeechRecognitionRejectedEventArgs> EventHandler)
+        {
+            speechEngine.SpeechRecognitionRejected += new EventHandler<SpeechRecognitionRejectedEventArgs>(EventHandler);
+        }
+
+        
     }
 }
