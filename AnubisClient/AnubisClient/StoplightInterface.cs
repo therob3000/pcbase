@@ -34,6 +34,8 @@ namespace AnubisClient
             SerPort.Write("1111");//write the port bytes, not a string (convert binary string to bytes
             //close port then re-open it before sending it the next command
 
+            //test
+
         }
 
     }
