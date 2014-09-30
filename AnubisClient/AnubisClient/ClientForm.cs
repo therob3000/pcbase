@@ -20,7 +20,7 @@ namespace AnubisClient
         private KinectInterface KI;
         public SerialPort SPort;
         public SerialPort SerPort;
-        private StoplightInterface SLI;
+       //private StoplightInterface SLI;
 
         public int BaseVal = 1500;
         public const string str_powerOffRobot = "#0L #1L #2L #3L #4L #5L #6L #7L #8L #9L #10L #11L #12L #13L  #14 P1500 #15 P1500 #16L\r";
@@ -31,7 +31,6 @@ namespace AnubisClient
         {
             InitializeComponent();
             KI = new KinectInterface();
-            KI.RegisterSpeechRecognized(SpeechRecog);
             KI.RegisterSkeletonReadyEvent(NewSkelFrame);
             SPort = new SerialPort("COM1");
             SPort.BaudRate = 115200;
@@ -46,14 +45,10 @@ namespace AnubisClient
             KI.startSpeech();
             SPort.Write(str_centerRobot);
 
-            SLI = new StoplightInterface();
-            SLI.flashGreenLightAndMakeSound();
+            //SLI = new StoplightInterface();
+            //SLI.flashGreenLightAndMakeSound();
         }
 
-        private void SpeechRecog(object sender, Microsoft.Speech.Recognition.SpeechRecognizedEventArgs e) 
-        {
-            MessageBox.Show("Mwahahaha");
-        }
 
         private void NewSkelFrame(object sender, Microsoft.Kinect.SkeletonFrameReadyEventArgs e)
         {
