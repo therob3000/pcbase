@@ -5,6 +5,7 @@
         <tag>ANUBIS READY</tag>
         <one-of>
           <item> anubis ready </item>
+          <item> anubis runny </item>
         </one-of>
       </item>
     </one-of>
