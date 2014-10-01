@@ -7,31 +7,43 @@ namespace AnubisClient
 {
     class CommandBuilder
     {
-        private string Command_to_Be_Sent;
+        private int[] Command_to_Be_Sent;
         
         public CommandBuilder ()
         {
+            Command_to_Be_Sent = new int[17];
 
         }
 
-        public void AddCommand(string Commands)
+        public void UpdateCommand(int Channel, int Position)
         {
-            Command_to_Be_Sent += Commands + "\r";
+            Command_to_Be_Sent[Channel] = Position;
+            
         }
-        public void AddCommand(string[] Commands)
+        public void UpdateCommand(int Channel, float Angle)
         {
-            foreach (string command in Commands)
-            {
-                Command_to_Be_Sent += command;
-            }
-            Command_to_Be_Sent += "\r";
-
+            float angle = Angle;
+            int Position = (int)(Angle * 10) + 600;
+            Command_to_Be_Sent[Channel] = Position;
+        
         }
         public string GetCurrentCommand()
         {
-            string Commands = Command_to_Be_Sent;
-            Command_to_Be_Sent = "";
-            return Commands;
+            int i = 0;
+            string Command = "";
+            foreach (int Position in Command_to_Be_Sent)
+            {
+                Command += "#" + i + "P" + Command_to_Be_Sent[i];
+                i++;
+            }
+            Command += "\r";
+            return Command;
+            
+        }
+
+        public void ClearCommandList()
+        {
+            
         }
     }
 }
