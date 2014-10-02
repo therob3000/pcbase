@@ -21,7 +21,7 @@ namespace AnubisClient
             
         }
 
-        public string[] GetSerialPorts() 
+        private string[] GetSerialPorts() 
         {
             string[] ports = SerialPort.GetPortNames();
             return ports;
@@ -31,8 +31,13 @@ namespace AnubisClient
         {
             SerPort = new SerialPort("COM10");
             SerPort.Open();
-            SerPort.Write("1111");//write the port bytes, not a string (convert binary string to bytes
+            SerPort.Write("1100");
+            System.Threading.Thread.Sleep(100);
+            SerPort.Close();
+            //write the port bytes, not a string (convert binary string to bytes
             //close port then re-open it before sending it the next command
+
+            
 
         }
 
