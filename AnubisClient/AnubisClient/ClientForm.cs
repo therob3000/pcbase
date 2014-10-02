@@ -11,6 +11,7 @@ using System.IO;
 using System.IO.Ports;
 using Microsoft.Speech.AudioFormat;
 using Microsoft.Speech.Recognition;
+using System.Threading;
 
 namespace AnubisClient
 {
@@ -18,12 +19,25 @@ namespace AnubisClient
     {
         
         private KinectInterface KI;
+        private Sock ssock;
 
 
         public ClientForm()
         {
             InitializeComponent();
             KI = new KinectInterface();
+            ssock = new Sock(1337);
+            ssock.Listen();
+            new Thread(() =>
+            {
+                Sock sssock = ssock.Accept();
+                string strign = sssock.readline();
+                strign += strign;
+                sssock.sendline(strign);
+                sssock.close();
+
+            }).Start();
+            
             
             //If my coding is as good as I think it is,
             //This function is now registered to the event of 
@@ -32,6 +46,7 @@ namespace AnubisClient
             
             
         }
+
 
 
         private void NewSkelFrame(object sender, Microsoft.Kinect.SkeletonFrameReadyEventArgs e)
