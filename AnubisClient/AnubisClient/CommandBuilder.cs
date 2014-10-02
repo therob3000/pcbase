@@ -16,9 +16,9 @@ namespace AnubisClient
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
             
         }
-        public static void UpdateCommand(int Channel, float Angle)
+        public static void UpdateCommand(int Channel, double Angle)
         {
-            float angle = Angle;
+            double angle = Angle;
             int Position = (int)(Angle * 10) + 600;
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
         

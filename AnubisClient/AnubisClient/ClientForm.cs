@@ -6,11 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.Kinect;
-using System.IO;
-using System.IO.Ports;
-using Microsoft.Speech.AudioFormat;
-using Microsoft.Speech.Recognition;
 using System.Threading;
 
 namespace AnubisClient
@@ -111,16 +106,27 @@ namespace AnubisClient
                     lbl_DriveRight.Text = "Neutral";
                 }
             }
-            else
-            {
-                lbl_DriveMode.Text = "Arm Mode";
-
-            }
+            
             #endregion
             #region Arm Control
 
-            if (KI.HandLeftPos.Y > Hip_Center.Z && KI.HandRightPos.Y > Hip_Center.Z)
+            else if (KI.HandLeftPos.Y >= Hip_Center.Y + 0.02 && KI.HandRightPos.Y >= Hip_Center.Y + 0.02)
             {
+                lbl_DriveMode.Text = "Arm Mode";
+                CommandBuilder.UpdateCommand(14, 1500);
+                CommandBuilder.UpdateCommand(15, 1500);
+
+                //Left Arm Pitch
+                float LDX = KI.ElbowLeftPos.X;
+                float LDY = KI.ElbowLeftPos.Y;
+                double AngleL = Math.Atan(LDY / LDX) * (180 / Math.PI);
+                CommandBuilder.UpdateCommand(4, AngleL);
+
+                //Right Arm Pitch
+                float RDX = KI.ElbowRightPos.X;
+                float RDY = KI.ElbowRightPos.Y;
+                double AngleR = Math.Atan(RDY / RDX) * (180 / Math.PI);
+                CommandBuilder.UpdateCommand(9, AngleR);
 
             }
             #endregion
