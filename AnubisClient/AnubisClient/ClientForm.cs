@@ -49,39 +49,56 @@ namespace AnubisClient
             Point3f Hip_Center = KI.SpineBasePos;
             
             //Drive Mode
-            if (KI.HandLeftPos.Y < Hip_Center.Y && KI.HandRightPos.Y < Hip_Center.Y)
+            if (KI.HandLeftPos.Y < Hip_Center.Y + 0.02 && KI.HandRightPos.Y < Hip_Center.Y + 0.02)
             {
                 lbl_DriveMode.Text = "Drive Mode";
-                if (KI.HandLeftPos.Z > Hip_Center.Z)
+                if (KI.HandLeftPos.Z > Hip_Center.Z + 0.1)
                 {
-                    //Send Command to Drive left Forward
+                    //Send Command to Drive left Reverse
                     CommandBuilder.UpdateCommand(14, 1000); // Need to Confirm Command
                     
-                    lbl_DriveLeft.Text = "Forward";
-                }
-                else if (KI.HandLeftPos.Z < Hip_Center.Z)
-                {
-                    //Send Command to drive left backwards
-                    CommandBuilder.UpdateCommand(14, 2000); //Need to Confirm Command
                     lbl_DriveLeft.Text = "Reverse";
                 }
-
-                if (KI.HandRightPos.Z > Hip_Center.Z)
+                else if (KI.HandLeftPos.Z < Hip_Center.Z - 0.1)
                 {
-                    // Send Command to drive Right Forward
+                    //Send Command to drive left Forwards
+                    CommandBuilder.UpdateCommand(14, 2000); //Need to Confirm Command
+                    lbl_DriveLeft.Text = "Forward";
+                }
+
+                else if (KI.HandLeftPos.Z >= Hip_Center.Z - 0.1 && KI.HandLeftPos.Z <= Hip_Center.Z + 0.1)
+                {
+                    //Send Command to drive left Neutral
+                    CommandBuilder.UpdateCommand(14, 1500); //Need to Confirm Command
+                    lbl_DriveLeft.Text = "Neutral";
+                }
+
+                if (KI.HandRightPos.Z > Hip_Center.Z + 0.1)
+                {
+                    // Send Command to drive Right Backwards
                     CommandBuilder.UpdateCommand(15, 1000); //Need to Confirm Command
+                    lbl_DriveRight.Text = "Reverse";
+                }
+
+                else if (KI.HandRightPos.Z < Hip_Center.Z - 0.1)
+                {
+                    //Send Command to drive Right Forwards
+                    CommandBuilder.UpdateCommand(15, 2000); //Need to Comfirm Command
                     lbl_DriveRight.Text = "Forward";
                 }
 
-                else if (KI.HandRightPos.Z < Hip_Center.Z)
+                else if (KI.HandRightPos.Z <= Hip_Center.Z + 0.1 && KI.HandRightPos.Z >= Hip_Center.Z - 0.1) 
                 {
-                    //Send Command to drive Right Backward
-                    CommandBuilder.UpdateCommand(15, 2000); //Need to Comfirm Command
-                    lbl_DriveRight.Text = "Reverse";
+                    //Send Command to drive Right Neutral
+                    CommandBuilder.UpdateCommand(15, 1500); //Need to Confirm Command
+                    lbl_DriveRight.Text = "Neutral";
                 }
             }
             else
+            {
                 lbl_DriveMode.Text = "Arm Mode";
+
+            }
             #endregion
             #region Arm Control
 
