@@ -5,45 +5,70 @@ using System.Text;
 
 namespace AnubisClient
 {
-    class CommandBuilder
+    static class CommandBuilder
     {
-        private int[] Command_to_Be_Sent;
+        private static string[] Command_to_Be_Sent = new string[17];
         
-        public CommandBuilder ()
-        {
-            Command_to_Be_Sent = new int[17];
+        
 
-        }
-
-        public void UpdateCommand(int Channel, int Position)
+        public static void UpdateCommand(int Channel, int Position)
         {
-            Command_to_Be_Sent[Channel] = Position;
+            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
             
         }
-        public void UpdateCommand(int Channel, float Angle)
+        public static void UpdateCommand(int Channel, float Angle)
         {
             float angle = Angle;
             int Position = (int)(Angle * 10) + 600;
-            Command_to_Be_Sent[Channel] = Position;
+            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
         
         }
-        public string GetCurrentCommand()
+        public static string GetCurrentCommand()
         {
             int i = 0;
             string Command = "";
-            foreach (int Position in Command_to_Be_Sent)
+            foreach (string Position in Command_to_Be_Sent)
             {
-                Command += "#" + i + "P" + Command_to_Be_Sent[i];
-                i++;
+                Command += Command_to_Be_Sent[i];
+                
             }
             Command += "\r";
             return Command;
             
         }
 
-        public void ClearCommandList()
+        public static void ClearCommandList()
         {
+
+            for (int i = 0; i < Command_to_Be_Sent.Length; i++)
+            {
+                Command_to_Be_Sent[i] = "";
+            }
             
+        }
+
+        public static void SetToCenter()
+        {
+            for (int i = 0; i < Command_to_Be_Sent.Length; i++)
+            {
+                Command_to_Be_Sent[i] = "#" + i + "P1500";
+            }
+        }
+
+        public static void SetToOff()
+        {
+            for (int i = 0; i < Command_to_Be_Sent.Length; i++)
+            {
+                if (i == 14 || i == 15)
+                {
+                    Command_to_Be_Sent[i] = "#" + i + "P1500";
+                }
+                else
+                {
+                    Command_to_Be_Sent[i] = "#" + i + "L";
+                }
+            }
+
         }
     }
 }

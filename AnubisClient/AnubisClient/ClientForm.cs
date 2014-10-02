@@ -18,7 +18,6 @@ namespace AnubisClient
     {
         
         private KinectInterface KI;
-        private CommandBuilder CB;
 
 
         public ClientForm()
@@ -31,44 +30,58 @@ namespace AnubisClient
             //New Skeleton Frame Ready
             KI.RegisterSkeletonReadyEvent(NewSkelFrame);
             
-            CB = new CommandBuilder();
             
         }
 
 
         private void NewSkelFrame(object sender, Microsoft.Kinect.SkeletonFrameReadyEventArgs e)
         {
+            tb_LHZ.Text = KI.HandLeftPos.Z.ToString();
+            tb_LHY.Text = KI.HandLeftPos.Y.ToString();
+            tb_HCZ.Text = KI.SpineBasePos.Z.ToString();
+            tb_HCY.Text = KI.SpineBasePos.Y.ToString();
+            tb_RHZ.Text = KI.HandRightPos.Z.ToString();
+            tb_RHY.Text = KI.HandRightPos.Y.ToString();
+
 
             #region Drivetrain
             //This will need some refining in terms of how responsive
             Point3f Hip_Center = KI.SpineBasePos;
             
-            //Drive Left
+            //Drive Mode
             if (KI.HandLeftPos.Y < Hip_Center.Y && KI.HandRightPos.Y < Hip_Center.Y)
             {
+                lbl_DriveMode.Text = "Drive Mode";
                 if (KI.HandLeftPos.Z > Hip_Center.Z)
                 {
                     //Send Command to Drive left Forward
-                    CB.UpdateCommand(14, 1000); // Need to Confirm Command
+                    CommandBuilder.UpdateCommand(14, 1000); // Need to Confirm Command
+                    
+                    lbl_DriveLeft.Text = "Forward";
                 }
                 else if (KI.HandLeftPos.Z < Hip_Center.Z)
                 {
                     //Send Command to drive left backwards
-                    CB.UpdateCommand(14, 2000); //Need to Confirm Command
+                    CommandBuilder.UpdateCommand(14, 2000); //Need to Confirm Command
+                    lbl_DriveLeft.Text = "Reverse";
                 }
 
                 if (KI.HandRightPos.Z > Hip_Center.Z)
                 {
                     // Send Command to drive Right Forward
-                    CB.UpdateCommand(15, 1000); //Need to Confirm Command
+                    CommandBuilder.UpdateCommand(15, 1000); //Need to Confirm Command
+                    lbl_DriveRight.Text = "Forward";
                 }
 
                 else if (KI.HandRightPos.Z < Hip_Center.Z)
                 {
                     //Send Command to drive Right Backward
-                    CB.UpdateCommand(15, 2000); //Need to Comfirm Command
+                    CommandBuilder.UpdateCommand(15, 2000); //Need to Comfirm Command
+                    lbl_DriveRight.Text = "Reverse";
                 }
             }
+            else
+                lbl_DriveMode.Text = "Arm Mode";
             #endregion
             #region Arm Control
 
