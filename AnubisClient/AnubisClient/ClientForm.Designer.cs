@@ -43,6 +43,11 @@
             this.lbl_DriveLeft = new System.Windows.Forms.Label();
             this.lbl_DriveMode = new System.Windows.Forms.Label();
             this.lbl_DriveRight = new System.Windows.Forms.Label();
+            this.NetCommWorker = new System.ComponentModel.BackgroundWorker();
+            this.ss_statusBar = new System.Windows.Forms.StatusStrip();
+            this.ts_StatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btn_ShutDownRobot = new System.Windows.Forms.Button();
+            this.ss_statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_LHZ
@@ -168,11 +173,47 @@
             this.lbl_DriveRight.TabIndex = 2;
             this.lbl_DriveRight.Text = "label7";
             // 
+            // NetCommWorker
+            // 
+            this.NetCommWorker.WorkerReportsProgress = true;
+            this.NetCommWorker.WorkerSupportsCancellation = true;
+            this.NetCommWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.NetCommWorker_DoWork);
+            this.NetCommWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.NetCommWorker_ProgressChanged);
+            this.NetCommWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.NetCommWorker_RunWorkerCompleted);
+            // 
+            // ss_statusBar
+            // 
+            this.ss_statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ts_StatusStrip});
+            this.ss_statusBar.Location = new System.Drawing.Point(0, 240);
+            this.ss_statusBar.Name = "ss_statusBar";
+            this.ss_statusBar.Size = new System.Drawing.Size(482, 22);
+            this.ss_statusBar.TabIndex = 3;
+            this.ss_statusBar.Text = "ss_StatusBar";
+            // 
+            // ts_StatusStrip
+            // 
+            this.ts_StatusStrip.Name = "ts_StatusStrip";
+            this.ts_StatusStrip.Size = new System.Drawing.Size(77, 17);
+            this.ts_StatusStrip.Text = "ts_StatusStrip";
+            // 
+            // btn_ShutDownRobot
+            // 
+            this.btn_ShutDownRobot.Location = new System.Drawing.Point(364, 214);
+            this.btn_ShutDownRobot.Name = "btn_ShutDownRobot";
+            this.btn_ShutDownRobot.Size = new System.Drawing.Size(106, 23);
+            this.btn_ShutDownRobot.TabIndex = 4;
+            this.btn_ShutDownRobot.Text = "Shutdown Robot";
+            this.btn_ShutDownRobot.UseVisualStyleBackColor = true;
+            this.btn_ShutDownRobot.Click += new System.EventHandler(this.btn_ShutDownRobot_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 262);
+            this.Controls.Add(this.btn_ShutDownRobot);
+            this.Controls.Add(this.ss_statusBar);
             this.Controls.Add(this.lbl_DriveRight);
             this.Controls.Add(this.lbl_DriveMode);
             this.Controls.Add(this.lbl_DriveLeft);
@@ -191,6 +232,8 @@
             this.Name = "ClientForm";
             this.Text = "ClientForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
+            this.ss_statusBar.ResumeLayout(false);
+            this.ss_statusBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,6 +256,10 @@
         private System.Windows.Forms.Label lbl_DriveLeft;
         private System.Windows.Forms.Label lbl_DriveMode;
         private System.Windows.Forms.Label lbl_DriveRight;
+        private System.ComponentModel.BackgroundWorker NetCommWorker;
+        private System.Windows.Forms.StatusStrip ss_statusBar;
+        private System.Windows.Forms.ToolStripStatusLabel ts_StatusStrip;
+        private System.Windows.Forms.Button btn_ShutDownRobot;
 
 
     }

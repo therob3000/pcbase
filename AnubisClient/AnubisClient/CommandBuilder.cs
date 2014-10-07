@@ -25,11 +25,10 @@ namespace AnubisClient
         }
         public static string GetCurrentCommand()
         {
-            int i = 0;
             string Command = "";
             foreach (string Position in Command_to_Be_Sent)
             {
-                Command += Command_to_Be_Sent[i];
+                Command += Position;
                 
             }
             Command += "\r";
@@ -51,7 +50,7 @@ namespace AnubisClient
         {
             for (int i = 0; i < Command_to_Be_Sent.Length; i++)
             {
-                Command_to_Be_Sent[i] = "#" + i + "P1500";
+                Command_to_Be_Sent[i] = "#" + i + " P1500 ";
             }
         }
 
@@ -61,11 +60,11 @@ namespace AnubisClient
             {
                 if (i == 14 || i == 15)
                 {
-                    Command_to_Be_Sent[i] = "#" + i + "P1500";
+                    Command_to_Be_Sent[i] = "#" + i + " P1500 ";
                 }
                 else
                 {
-                    Command_to_Be_Sent[i] = "#" + i + "L";
+                    Command_to_Be_Sent[i] = "#" + i + "L ";
                 }
             }
 
