@@ -114,23 +114,23 @@ namespace AnubisClient
             #endregion
             #region Arm Control
 
-            else if (KI.HandLeftPos.Y >= Hip_Center.Y + 0.02 && KI.HandRightPos.Y >= Hip_Center.Y + 0.02)
+            else //if (KI.HandLeftPos.Y >= Hip_Center.Y + 0.02 && KI.HandRightPos.Y >= Hip_Center.Y + 0.02)
             {
                 lbl_DriveMode.Text = "Arm Mode";
                 CommandBuilder.UpdateCommand(14, 1500);
                 CommandBuilder.UpdateCommand(15, 1500);
 
                 //Left Arm Pitch
-                float LDX = KI.ElbowLeftPos.X;
-                float LDY = KI.ElbowLeftPos.Y;
+                float LDX = KI.ElbowLeftPos.X - KI.ShoulderLeftPos.X;
+                float LDY = KI.ElbowLeftPos.Y - KI.ShoulderLeftPos.Y;
                 double AngleL = Math.Atan(LDY / LDX) * (180 / Math.PI);
-                CommandBuilder.UpdateCommand(4, AngleL);
+                CommandBuilder.UpdateCommand(9, AngleL);
 
                 //Right Arm Pitch
-                float RDX = KI.ElbowRightPos.X;
-                float RDY = KI.ElbowRightPos.Y;
+                float RDX = KI.ElbowRightPos.X - KI.ShoulderRightPos.X;
+                float RDY = KI.ElbowRightPos.Y - KI.ShoulderRightPos.Y;
                 double AngleR = Math.Atan(RDY / RDX) * (180 / Math.PI) + 180;
-                CommandBuilder.UpdateCommand(9, AngleR);
+                CommandBuilder.UpdateCommand(4, AngleR);
 
             }
             #endregion
@@ -161,7 +161,7 @@ namespace AnubisClient
         private void NetCommWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             string ReceivedMessage = "";
-            int Interval = 100; //Interval in Miliseconds 
+            int Interval = 10; //Interval in Miliseconds 
             try
             {       ssock = new Sock(1337);
                     ssock.Listen();
