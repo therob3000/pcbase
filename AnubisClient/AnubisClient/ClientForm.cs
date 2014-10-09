@@ -103,7 +103,7 @@ namespace AnubisClient
                     lbl_DriveRight.Text = "Forward";
                 }
 
-                else if (KI.HandRightPos.Z <= Hip_Center.Z + 0.1 && KI.HandRightPos.Z >= Hip_Center.Z - 0.1)
+                else if (KI.HandRightPos.Z >= Hip_Center.Z - 0.1 && KI.HandRightPos.Z <= Hip_Center.Z + 0.1)
                 {
                     //Send Command to drive Right Neutral
                     CommandBuilder.UpdateCommand(14, 1500); //Need to Confirm Command
@@ -151,7 +151,7 @@ namespace AnubisClient
                 float RollRDY = KI.ShoulderRightPos.Y - KI.HandRightPos.Y;
                 double RollAngleR = Math.Atan(RollRDY / RollRDZ) * (180 / Math.PI);
                 CommandBuilder.UpdateCommand(3, RollAngleR);
-                AngleLabel.Text = "Roll = " + RollAngleR.ToString();
+                
 
             //}
             #endregion
@@ -190,11 +190,12 @@ namespace AnubisClient
                     sssock = ssock.Accept();
                 while (!NetCommWorker.CancellationPending)
                 {
+                    //string test = CommandBuilder.GetCurrentCommand();
                     sssock.sendline(CommandBuilder.GetCurrentCommand());
                     NetCommWorker.ReportProgress(0, "Command Sent");
-                    NetCommWorker.ReportProgress(0, "Attempting Read");
+                 /*   NetCommWorker.ReportProgress(0, "Attempting Read");
                     ReceivedMessage = sssock.readline();
-                    NetCommWorker.ReportProgress(1, ReceivedMessage);
+                    NetCommWorker.ReportProgress(1, ReceivedMessage);*/
                     
                     System.Threading.Thread.Sleep(Interval);
                  

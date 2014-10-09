@@ -28,7 +28,7 @@ namespace AnubisClient
             string Command = "";
             foreach (string Position in Command_to_Be_Sent)
             {
-                Command += Position;
+                Command += Position + " ";
                 
             }
             Command += "\r";

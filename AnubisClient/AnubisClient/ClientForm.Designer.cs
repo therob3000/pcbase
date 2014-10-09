@@ -47,7 +47,6 @@
             this.ss_statusBar = new System.Windows.Forms.StatusStrip();
             this.ts_StatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.btn_ShutDownRobot = new System.Windows.Forms.Button();
-            this.AngleLabel = new System.Windows.Forms.Label();
             this.ss_statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -200,30 +199,19 @@
             // 
             // btn_ShutDownRobot
             // 
-            this.btn_ShutDownRobot.Location = new System.Drawing.Point(364, 214);
+            this.btn_ShutDownRobot.Location = new System.Drawing.Point(323, 214);
             this.btn_ShutDownRobot.Name = "btn_ShutDownRobot";
-            this.btn_ShutDownRobot.Size = new System.Drawing.Size(106, 23);
+            this.btn_ShutDownRobot.Size = new System.Drawing.Size(147, 23);
             this.btn_ShutDownRobot.TabIndex = 4;
-            this.btn_ShutDownRobot.Text = "Shutdown Robot";
+            this.btn_ShutDownRobot.Text = "Shutdown Network Link";
             this.btn_ShutDownRobot.UseVisualStyleBackColor = true;
             this.btn_ShutDownRobot.Click += new System.EventHandler(this.btn_ShutDownRobot_Click);
-            // 
-            // AngleLabel
-            // 
-            this.AngleLabel.AutoSize = true;
-            this.AngleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AngleLabel.Location = new System.Drawing.Point(74, 182);
-            this.AngleLabel.Name = "AngleLabel";
-            this.AngleLabel.Size = new System.Drawing.Size(79, 29);
-            this.AngleLabel.TabIndex = 5;
-            this.AngleLabel.Text = "label7";
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 262);
-            this.Controls.Add(this.AngleLabel);
             this.Controls.Add(this.btn_ShutDownRobot);
             this.Controls.Add(this.ss_statusBar);
             this.Controls.Add(this.lbl_DriveRight);
@@ -272,7 +260,6 @@
         private System.Windows.Forms.StatusStrip ss_statusBar;
         private System.Windows.Forms.ToolStripStatusLabel ts_StatusStrip;
         private System.Windows.Forms.Button btn_ShutDownRobot;
-        private System.Windows.Forms.Label AngleLabel;
 
 
     }
