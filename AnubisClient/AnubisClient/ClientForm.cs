@@ -111,14 +111,20 @@ namespace AnubisClient
                 }
             }
 
+            else
+            {
+                CommandBuilder.UpdateCommand(14, 1500);
+                CommandBuilder.UpdateCommand(15, 1500);
+            }
+
             #endregion
             #region Arm Control
 
-            else //if (KI.HandLeftPos.Y >= Hip_Center.Y + 0.02 && KI.HandRightPos.Y >= Hip_Center.Y + 0.02)
-            {
+            //else //if (KI.HandLeftPos.Y >= Hip_Center.Y + 0.02 && KI.HandRightPos.Y >= Hip_Center.Y + 0.02)
+            //{
                 lbl_DriveMode.Text = "Arm Mode";
-                CommandBuilder.UpdateCommand(14, 1500);
-                CommandBuilder.UpdateCommand(15, 1500);
+                //CommandBuilder.UpdateCommand(14, 1500);
+                //CommandBuilder.UpdateCommand(15, 1500);
 
                 //Left Arm Pitch
                 float LDX = KI.ElbowLeftPos.X - KI.ShoulderLeftPos.X;
@@ -126,13 +132,28 @@ namespace AnubisClient
                 double AngleL = Math.Atan(LDY / LDX) * (180 / Math.PI);
                 CommandBuilder.UpdateCommand(9, AngleL);
 
+                //Left Arm Shoulder Roll
+                float RollLDZ = KI.ShoulderLeftPos.Z - KI.HandLeftPos.Z;
+                float RollLDY = KI.ShoulderLeftPos.Y - KI.HandLeftPos.Y;
+                double RollAngleL = Math.Atan(RollLDY / RollLDZ) * (180 / Math.PI);
+                CommandBuilder.UpdateCommand(8, (90 - RollAngleL) + 90);
+                
+                
+
                 //Right Arm Pitch
                 float RDX = KI.ElbowRightPos.X - KI.ShoulderRightPos.X;
                 float RDY = KI.ElbowRightPos.Y - KI.ShoulderRightPos.Y;
                 double AngleR = Math.Atan(RDY / RDX) * (180 / Math.PI) + 180;
                 CommandBuilder.UpdateCommand(4, AngleR);
 
-            }
+                //Right Arm Shoulder Roll
+                float RollRDZ = KI.ShoulderRightPos.Z - KI.HandRightPos.Z;
+                float RollRDY = KI.ShoulderRightPos.Y - KI.HandRightPos.Y;
+                double RollAngleR = Math.Atan(RollRDY / RollRDZ) * (180 / Math.PI);
+                CommandBuilder.UpdateCommand(3, RollAngleR);
+                AngleLabel.Text = "Roll = " + RollAngleR.ToString();
+
+            //}
             #endregion
         }
 
