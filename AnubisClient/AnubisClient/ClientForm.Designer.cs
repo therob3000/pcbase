@@ -230,6 +230,7 @@
             this.Controls.Add(this.tb_LHY);
             this.Controls.Add(this.tb_LHZ);
             this.Name = "ClientForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ClientForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
             this.ss_statusBar.ResumeLayout(false);

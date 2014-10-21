@@ -14,6 +14,8 @@ namespace AnubisClient
     {
         #region JointAccessors
 
+        public int tracked_skeletons = 0;
+
         private Point3f _spineBasePos;
         public Point3f SpineBasePos
         {
@@ -284,6 +286,7 @@ namespace AnubisClient
                 speechEngine.SpeechRecognitionRejected += SpeechRejected;
             }
         }
+        
         /// <summary>
         /// Event Handler for new skeleton frame
         /// </summary>
@@ -306,62 +309,74 @@ namespace AnubisClient
                 //Update joint position information
                 if (skeletons.Length != 0)
                 {
-                    if (skeletons[0].TrackingState == SkeletonTrackingState.Tracked)
+                    tracked_skeletons = 0;
+                    foreach (Skeleton s in skeletons)
                     {
-                        JointCollection jnts = skeletons[0].Joints; // use joints from first skeleton
+                        if (s.TrackingState == SkeletonTrackingState.Tracked)
+                        {
+                            tracked_skeletons++;
 
-                        // --Torso--
-                        //Spine Base
-                        _spineBasePos.update(jnts[JointType.HipCenter]);
-                        //Spine Mid
-                        _spineMidPos.update(jnts[JointType.Spine]);
-                        //Spine
-                        _spineShoulderPos.update(jnts[JointType.ShoulderCenter]);
-                        //Head
-                        _headPos.update(jnts[JointType.Head]);
+                            JointCollection jnts = s.Joints;
 
-                        //--Left Arm--
-                        //Shoulder
-                        _shoulderLeftPos.update(jnts[JointType.ShoulderLeft]);
-                        //Elbow
-                        _elbowLeftPos.update(jnts[JointType.ElbowLeft]);
-                        //Wrist
-                        _wristLeftPos.update(jnts[JointType.WristLeft]);
-                        //Hand
-                        _handLeftPos.update(jnts[JointType.HandLeft]);
+                            // --Torso--
+                            //Spine Base
+                            _spineBasePos.update(jnts[JointType.HipCenter]);
+                            //Spine Mid
+                            _spineMidPos.update(jnts[JointType.Spine]);
+                            //Spine
+                            _spineShoulderPos.update(jnts[JointType.ShoulderCenter]);
+                            //Head
+                            _headPos.update(jnts[JointType.Head]);
 
-                        //--Right Arm--
-                        //Shoulder
-                        _shoulderRightPos.update(jnts[JointType.ShoulderRight]);
-                        //Elbow
-                        _elbowRightPos.update(jnts[JointType.ElbowRight]);
-                        //Wrist
-                        _wristRightPos.update(jnts[JointType.WristRight]);
-                        //Hand
-                        _handRightPos.update(jnts[JointType.HandRight]);
+                            //--Left Arm--
+                            //Shoulder
+                            _shoulderLeftPos.update(jnts[JointType.ShoulderLeft]);
+                            //Elbow
+                            _elbowLeftPos.update(jnts[JointType.ElbowLeft]);
+                            //Wrist
+                            _wristLeftPos.update(jnts[JointType.WristLeft]);
+                            //Hand
+                            _handLeftPos.update(jnts[JointType.HandLeft]);
 
-                        //--Left Leg--
-                        //Hip
-                        _hipLeftPos.update(jnts[JointType.HipLeft]);
-                        //Knee
-                        _kneeLeftPos.update(jnts[JointType.KneeLeft]);
-                        //Ankle
-                        _ankleLeftPos.update(jnts[JointType.AnkleLeft]);
-                        //Foot
-                        _footLeftPos.update(jnts[JointType.FootLeft]);
+                            //--Right Arm--
+                            //Shoulder
+                            _shoulderRightPos.update(jnts[JointType.ShoulderRight]);
+                            //Elbow
+                            _elbowRightPos.update(jnts[JointType.ElbowRight]);
+                            //Wrist
+                            _wristRightPos.update(jnts[JointType.WristRight]);
+                            //Hand
+                            _handRightPos.update(jnts[JointType.HandRight]);
+
+                            //--Left Leg--
+                            //Hip
+                            _hipLeftPos.update(jnts[JointType.HipLeft]);
+                            //Knee
+                            _kneeLeftPos.update(jnts[JointType.KneeLeft]);
+                            //Ankle
+                            _ankleLeftPos.update(jnts[JointType.AnkleLeft]);
+                            //Foot
+                            _footLeftPos.update(jnts[JointType.FootLeft]);
 
 
-                        //--Right Leg--
-                        //Hip
-                        _hipRightPos.update(jnts[JointType.HipRight]);
-                        //Knee
-                        _kneeRightPos.update(jnts[JointType.KneeRight]);
-                        //Ankle
-                        _ankleRightPos.update(jnts[JointType.AnkleRight]);
-                        //Foot
-                        _footRightPos.update(jnts[JointType.FootRight]);
+                            //--Right Leg--
+                            //Hip
+                            _hipRightPos.update(jnts[JointType.HipRight]);
+                            //Knee
+                            _kneeRightPos.update(jnts[JointType.KneeRight]);
+                            //Ankle
+                            _ankleRightPos.update(jnts[JointType.AnkleRight]);
+                            //Foot
+                            _footRightPos.update(jnts[JointType.FootRight]);
+                        }
                     }
+                  
                 }
+                else if (skeletons.Length == 0)
+                {
+                    MessageBox.Show("Drew is a...");
+                }
+                
             }
         }
 
