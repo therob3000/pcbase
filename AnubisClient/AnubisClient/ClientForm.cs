@@ -16,11 +16,16 @@ namespace AnubisClient
     {
 
         RobotInterface ROI;
+        Form ChildForm;
         public ClientForm()
         {
+            this.IsMdiContainer = true;
             InitializeComponent();
             ROI = new RobotInterface();
             ROI.StartInterface();
+            ChildForm = new Form();
+            ChildForm.MdiParent = this;
+            ChildForm.Show();
 
         }
 
