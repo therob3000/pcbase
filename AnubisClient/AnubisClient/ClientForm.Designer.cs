@@ -47,6 +47,7 @@
             this.ss_statusBar = new System.Windows.Forms.StatusStrip();
             this.ts_StatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.btn_ShutDownRobot = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.ss_statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -173,14 +174,6 @@
             this.lbl_DriveRight.TabIndex = 2;
             this.lbl_DriveRight.Text = "label7";
             // 
-            // NetCommWorker
-            // 
-            this.NetCommWorker.WorkerReportsProgress = true;
-            this.NetCommWorker.WorkerSupportsCancellation = true;
-            this.NetCommWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.NetCommWorker_DoWork);
-            this.NetCommWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.NetCommWorker_ProgressChanged);
-            this.NetCommWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.NetCommWorker_RunWorkerCompleted);
-            // 
             // ss_statusBar
             // 
             this.ss_statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -207,11 +200,19 @@
             this.btn_ShutDownRobot.UseVisualStyleBackColor = true;
             this.btn_ShutDownRobot.Click += new System.EventHandler(this.btn_ShutDownRobot_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 173);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(458, 20);
+            this.textBox1.TabIndex = 5;
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 262);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btn_ShutDownRobot);
             this.Controls.Add(this.ss_statusBar);
             this.Controls.Add(this.lbl_DriveRight);
@@ -233,6 +234,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ClientForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
+            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.ss_statusBar.ResumeLayout(false);
             this.ss_statusBar.PerformLayout();
             this.ResumeLayout(false);
@@ -261,6 +263,7 @@
         private System.Windows.Forms.StatusStrip ss_statusBar;
         private System.Windows.Forms.ToolStripStatusLabel ts_StatusStrip;
         private System.Windows.Forms.Button btn_ShutDownRobot;
+        private System.Windows.Forms.TextBox textBox1;
 
 
     }

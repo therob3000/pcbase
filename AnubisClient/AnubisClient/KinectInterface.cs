@@ -374,7 +374,7 @@ namespace AnubisClient
                 }
                 else if (skeletons.Length == 0)
                 {
-                    MessageBox.Show("Drew is a...");
+                    //MessageBox.Show("Drew is a...");
                 }
                 
             }

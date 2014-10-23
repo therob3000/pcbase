@@ -23,6 +23,18 @@ namespace AnubisClient
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
         
         }
+        public static void UpdateCommand(int Channel, int Position, int Speed)
+        {
+            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position + " S" + Speed;
+        }
+
+        public static void UpdateCommand(int Channel, double Angle, int Speed)
+        {
+            double angle = Angle;
+            int Position = (int)(Angle * 10) + 600;
+            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position + " S" + Speed;
+        } 
+
         public static string GetCurrentCommand()
         {
             string Command = "";
