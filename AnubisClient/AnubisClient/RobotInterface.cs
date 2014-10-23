@@ -12,7 +12,7 @@ namespace AnubisClient
 {
     class RobotInterface
     {
-        private KinectInterface KI;
+        public KinectInterface KI;
         private Sock ssock;
         private Sock sssock;
         private BackgroundWorker NetCommWorker;

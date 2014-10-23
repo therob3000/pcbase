@@ -64,6 +64,12 @@
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="KinectInterface.cs" />
+    <Compile Include="KinectView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KinectView.Designer.cs">
+      <DependentUpon>KinectView.cs</DependentUpon>
+    </Compile>
     <Compile Include="NetworkInterface.cs" />
     <Compile Include="Point3f.cs" />
     <Compile Include="Program.cs" />
@@ -73,6 +79,9 @@
     <Compile Include="StoplightInterface.cs" />
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KinectView.resx">
+      <DependentUpon>KinectView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
