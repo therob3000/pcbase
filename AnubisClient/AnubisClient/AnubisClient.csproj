@@ -77,6 +77,9 @@
     <Compile Include="RobotInterface.cs" />
     <Compile Include="Sock.cs" />
     <Compile Include="StoplightInterface.cs" />
+    <Compile Include="KinectPrint.xaml.cs">
+      <DependentUpon>KinectPrint.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +113,12 @@
     <Content Include="SpeechGrammar.xml">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="KinectPrint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

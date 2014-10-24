@@ -15,7 +15,7 @@ namespace AnubisClient
     public partial class ClientForm : Form
     {
 
-        public RobotInterface ROI;
+        RobotInterface ROI;
         Form ChildForm;
         public ClientForm()
         {
