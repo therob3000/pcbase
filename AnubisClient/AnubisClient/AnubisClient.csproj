@@ -63,13 +63,13 @@
     <Compile Include="ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinectInterface.cs" />
-    <Compile Include="KinectView.cs">
+    <Compile Include="CommandView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KinectView.Designer.cs">
-      <DependentUpon>KinectView.cs</DependentUpon>
+    <Compile Include="CommandView.Designer.cs">
+      <DependentUpon>CommandView.cs</DependentUpon>
     </Compile>
+    <Compile Include="KinectInterface.cs" />
     <Compile Include="NetworkInterface.cs" />
     <Compile Include="Point3f.cs" />
     <Compile Include="Program.cs" />
@@ -77,14 +77,11 @@
     <Compile Include="RobotInterface.cs" />
     <Compile Include="Sock.cs" />
     <Compile Include="StoplightInterface.cs" />
-    <Compile Include="KinectPrint.xaml.cs">
-      <DependentUpon>KinectPrint.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinectView.resx">
-      <DependentUpon>KinectView.cs</DependentUpon>
+    <EmbeddedResource Include="CommandView.resx">
+      <DependentUpon>CommandView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -113,12 +110,6 @@
     <Content Include="SpeechGrammar.xml">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="KinectPrint.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
