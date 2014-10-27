@@ -23,6 +23,12 @@ namespace AnubisClient
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
         
         }
+
+        public static string[] GetCurrentCommandArray()
+        {
+            return Command_to_Be_Sent;
+        }
+
         public static void UpdateCommand(int Channel, int Position, int Speed)
         {
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position + " S" + Speed;

@@ -34,3 +34,4 @@ C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\D
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient_Content.g.cs
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient_MarkupCompile.cache
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.g.resources
+C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.CommandView.resources
