@@ -83,7 +83,10 @@
             this.Controls.Add(this.btn_UpdateGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "CommandView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CommandView";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommandView_FormClosing);
+            this.Load += new System.EventHandler(this.CommandView_Load);
             this.ResumeLayout(false);
 
         }

@@ -16,18 +16,12 @@ namespace AnubisClient
     {
 
         RobotInterface ROI;
-        Form CommandViewForm;
         public ClientForm()
         {
             this.IsMdiContainer = true;
             InitializeComponent();
             ROI = new RobotInterface();
             ROI.StartInterface();
-
-            CommandViewForm = new CommandView();
-            CommandViewForm.MdiParent = this;
-            CommandViewForm.Show();
-
         }
 
 
@@ -56,6 +50,11 @@ namespace AnubisClient
         private void ClientForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void commandViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CommandView.getInstance(this).Show();
         }
 
         
