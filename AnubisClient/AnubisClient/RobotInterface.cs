@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
 
 namespace AnubisClient
 {
@@ -41,7 +42,6 @@ namespace AnubisClient
             RobotConnection = ConnectionSock;
             
         }
-
         public override void UpdateSkeleton(Joint3d[] Skeleton)
         {
             UpdateCommand(3, Skeleton[4].Roll);
@@ -56,7 +56,6 @@ namespace AnubisClient
             //More can be Added as Code is added
 
         }
-
         public override void UpdateCommand(int Channel, int Position)
         {
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
@@ -69,24 +68,20 @@ namespace AnubisClient
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
 
         }
-
         public override string[] GetCurrentCommandArray()
         {
             return Command_to_Be_Sent;
         }
-
         public override void UpdateCommand(int Channel, int Position, int Speed)
         {
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position + " S" + Speed;
         }
-
         public override void UpdateCommand(int Channel, double Angle, int Speed)
         {
             double angle = Angle;
             int Position = (int)(Angle * 10) + 600;
             Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position + " S" + Speed;
         }
-
         public override string GetCurrentCommand()
         {
             string Command = "";
@@ -99,7 +94,6 @@ namespace AnubisClient
             return Command;
 
         }
-
         public override void ClearCommandList()
         {
 
@@ -109,7 +103,6 @@ namespace AnubisClient
             }
 
         }
-
         public override void SetToCenter()
         {
             for (int i = 0; i < Command_to_Be_Sent.Length; i++)
@@ -117,7 +110,6 @@ namespace AnubisClient
                 Command_to_Be_Sent[i] = "#" + i + " P1500 ";
             }
         }
-
         public override void SetToOff()
         {
             for (int i = 0; i < Command_to_Be_Sent.Length; i++)
@@ -132,6 +124,58 @@ namespace AnubisClient
                 }
             }
 
+        }
+        public override int Ping()
+        {
+            try
+            {
+                Stopwatch time = new Stopwatch();
+                time.Start();
+                RobotConnection.sendline("pg");
+                string message = RobotConnection.readline();
+                time.Stop();
+                return (int)time.ElapsedMilliseconds;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+        public override void SendCommands()
+        {
+            try
+            {
+                RobotConnection.sendline(GetCurrentCommand());
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public override string RequestCommand()
+        {
+            try
+            {
+                RobotConnection.sendline("rv");
+                return RobotConnection.readline();
+            }
+            catch (Exception ex)
+            {
+                return "Net Error";
+            }  
+        }
+        public override string RequestData(string Paramater)
+        {
+            try
+            {
+                RobotConnection.sendline("rd " + Paramater);
+                return RobotConnection.readline();
+            }
+            catch (Exception ex)
+            {
+                return "Net Error";
+            }
+            
         }
     }
 }

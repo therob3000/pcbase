@@ -10,7 +10,7 @@ namespace AnubisClient
         public static CommunicationsEngine CommsEngine = new CommunicationsEngine();
         public static KinematicsEngine KinemEngine = new KinematicsEngine();
 
-        public static void Initialize()
+        public static void Initialize() //Already being called by Program.cs
         {
 
         }

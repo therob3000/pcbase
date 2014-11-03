@@ -12,6 +12,7 @@ namespace AnubisClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ANUBISEngine.Initialize();
             Application.Run(new ClientForm());
         }
     }

@@ -10,12 +10,15 @@ using System.Threading;
 
 namespace AnubisClient
 {
+    //Needs to be written to act as a network listener. This will handle any new connections.
     public class NetworkInterface
     {
         private Sock ssock;
         private Sock sssock;
         private BackgroundWorker NetCommWorker;
-        private string _ReceivedMessage;
+
+        public event EventHandler<Sock> connectionAccepted;
+        public event EventHandler<string> netInterfaceMessage;
 
         public void NetworkInterface ()
         {
@@ -30,23 +33,17 @@ namespace AnubisClient
                     
         private void NetCommWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            int Interval = 10; //Interval in Miliseconds 
             try
             {
-                ssock = new Sock(1337);
+                ssock = new Sock(1337);                    
                 ssock.Listen();
                 NetCommWorker.ReportProgress(0, "Waiting for Client Connection");
-                sssock = ssock.Accept();
+                
                 while (!NetCommWorker.CancellationPending)
                 {
-                    //string test = CommandBuilder.GetCurrentCommand();
-                    sssock.sendline("sv " + CommandBuilder.GetCurrentCommand());
-                    NetCommWorker.ReportProgress(0, "Command Sent");
-                    /*   NetCommWorker.ReportProgress(0, "Attempting Read");
-                       ReceivedMessage = sssock.readline();
-                       NetCommWorker.ReportProgress(1, ReceivedMessage);*/
 
-                    System.Threading.Thread.Sleep(Interval);
+                    sssock = ssock.Accept();
+                    NetCommWorker.ReportProgress(1, sssock);
 
                 }
             }
@@ -65,13 +62,20 @@ namespace AnubisClient
         /// <param name="e"> Contains Percent property and UserState property</param>
         private void NetCommWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == 1) // Provides Returned Network Message to the front panel
+            if (e.ProgressPercentage == 1) //ReturnS NEW socket object
             {
-
+                // raise connectionAccepted event
+                if (connectionAccepted != null)
+                {
+                    connectionAccepted(this, (Sock)e.UserState);
+                }
             }
-            else
+            else if (e.ProgressPercentage == 0)
             { //Sends error feedback to front panel
-                //ts_StatusStrip.Text = e.UserState.ToString();
+                if (netInterfaceMessage != null)
+                {
+                    netInterfaceMessage(this, (string)e.UserState);
+                }
             }
         }
 
@@ -82,36 +86,7 @@ namespace AnubisClient
         /// <param name="e"></param>
         private void NetCommWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //ts_StatusStrip.Text = "Worker Shutdown";
-            sssock.sendline("q");
-            Thread.Sleep(10);
             ssock.close();
-        }
-
-        private string readData(string Paramater)
-        {
-            try
-            {
-                sssock.sendline("rd " + Paramater);
-                return sssock.readline();
-            }
-            catch (Exception ex)
-            {
-                return "Net Error";
-            }
-        }
-
-        private string readCommand()
-        {
-            try
-            {
-                sssock.sendline("rv");
-                return sssock.readline();
-            }
-            catch (Exception ex)
-            {
-                return "Net Error";
-            }
         }
 
     }
