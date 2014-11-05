@@ -31,3 +31,4 @@ C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\D
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.CommandView.resources
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.CommandView.resources
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe.config
+C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe.config
