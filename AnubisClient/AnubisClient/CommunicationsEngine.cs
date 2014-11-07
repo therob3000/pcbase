@@ -13,7 +13,7 @@ namespace AnubisClient
         private List<Sock> SocketPool;
         private List<RobotInterface> ConnectionPool;
         private NetworkInterface NetFace;
-        public void Communicationsengine()
+        public void CommunicationsEngine()
         {
             CommsSystem = new BackgroundWorker();
             CommsSystem.WorkerSupportsCancellation = true;
@@ -59,6 +59,14 @@ namespace AnubisClient
                 {
                     RI.SendCommands();
                 }
+            }
+        }
+
+        public void StartThread()
+        {
+            if (!CommsSystem.IsBusy)
+            {
+                CommsSystem.RunWorkerAsync();
             }
         }
     }

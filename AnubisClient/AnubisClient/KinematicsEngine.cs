@@ -177,5 +177,13 @@ namespace AnubisClient
             
         }
         #endregion
+
+        public void StartThread()
+        {
+            if (!KinectUpdater.IsBusy)
+            {
+                KinectUpdater.RunWorkerAsync();
+            }
+        }
     }
 }

@@ -12,7 +12,10 @@ namespace AnubisClient
 
         public static void Initialize() //Already being called by Program.cs
         {
+            KinemEngine = new KinematicsEngine();
+            CommsEngine = new CommunicationsEngine();
 
+            CommsEngine.StartThread();
         }
     }
 }
