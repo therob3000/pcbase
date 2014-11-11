@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace AnubisClient
 {
-    class Sock
+    public class Sock
     {
         private Socket sock;
         private int _port;

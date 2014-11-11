@@ -13,6 +13,7 @@ namespace AnubisClient
         private List<Sock> SocketPool;
         private List<RobotInterface> ConnectionPool;
         private NetworkInterface NetFace;
+        
         public CommunicationsEngine()
         {
             CommsSystem = new BackgroundWorker();
@@ -37,15 +38,15 @@ namespace AnubisClient
             }
         }
 
-        void NetFace_connectionAccepted(object sender, Sock e)
+        void NetFace_connectionAccepted(object sender, SockArgs e)
         {
             if (e != null)
             {
-                SocketPool.Add(e);
+                SocketPool.Add(e.Socket);
             }
-            if (e.readline() == "Johnny 5")
+            if (e.Socket.readline() == "Johnny 5")
             {
-                ConnectionPool.Add(new Johnny5());
+                ConnectionPool.Add(new Johnny5(e.Socket));
             }
         }
 

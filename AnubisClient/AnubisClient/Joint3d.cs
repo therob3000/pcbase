@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AnubisClient
 {
-    class Joint3d
+    public class Joint3d
     {
         public double Pitch, Roll, Yaw;
 

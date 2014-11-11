@@ -15,7 +15,10 @@ namespace AnubisClient
     public abstract class RobotInterface
     {
         abstract public void UpdateSkeleton(Joint3d[] Skeleton);
-        abstract public void UpdateCommand();
+        abstract public void UpdateCommand(int Channel, int Position);
+        abstract public void UpdateCommand(int Channel, double Angle);
+        abstract public void UpdateCommand(int Channel, double Angle, int Speed);
+        abstract public void UpdateCommand(int Channel, int Position, int Speed);
         abstract public void ClearCommandList();
         abstract public string[] GetCurrentCommandArray();
         abstract public string GetCurrentCommand();
@@ -23,13 +26,17 @@ namespace AnubisClient
         abstract public void SetToOff();
 
         abstract public void SendCommands();
-        abstract public string RequestData();
+        abstract public string RequestData(string Parameter);
         abstract public string RequestCommand();
         abstract public int Ping();
 
 
         protected Sock RobotConnection;
+
         protected string[] Command_to_Be_Sent;
+
+
+
 
     }
         
@@ -38,6 +45,7 @@ namespace AnubisClient
 
         public Johnny5(Sock ConnectionSock)
         {
+            
             Command_to_Be_Sent = new string[17];
             RobotConnection = ConnectionSock;
             

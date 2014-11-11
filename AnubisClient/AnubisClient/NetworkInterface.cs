@@ -17,8 +17,8 @@ namespace AnubisClient
         private Sock sssock;
         private BackgroundWorker NetCommWorker;
 
-        public event EventHandler<Sock> connectionAccepted;
-        public event EventHandler<string> netInterfaceMessage;
+        public event EventHandler<SockArgs> connectionAccepted;
+        public event EventHandler<EventArgs> netInterfaceMessage;
 
         public NetworkInterface ()
         {
@@ -67,14 +67,14 @@ namespace AnubisClient
                 // raise connectionAccepted event
                 if (connectionAccepted != null)
                 {
-                    connectionAccepted(this, (Sock)e.UserState);
+                    connectionAccepted(this, new SockArgs((Sock)e.UserState));
                 }
             }
             else if (e.ProgressPercentage == 0)
             { //Sends error feedback to front panel
                 if (netInterfaceMessage != null)
                 {
-                    netInterfaceMessage(this, (string)e.UserState);
+                    netInterfaceMessage(this, new MessageArgs(e.UserState.ToString()));
                 }
             }
         }

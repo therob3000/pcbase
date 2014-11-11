@@ -20,8 +20,6 @@ namespace AnubisClient
         {
             this.IsMdiContainer = true;
             InitializeComponent();
-            ROI = new RobotInterface();
-            ROI.StartInterface();
         }
 
 
@@ -54,7 +52,7 @@ namespace AnubisClient
 
         private void commandViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CommandView.getInstance(this).Show();
+            
         }
 
         
