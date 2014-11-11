@@ -16,7 +16,8 @@ namespace AnubisClient
         public KinematicsEngine()
         {
             KI = new KinectInterface();
-
+            JointVals = new Point3f[20];
+            JointAngles = new Joint3d[20];
             KinectUpdater = new BackgroundWorker();
             KinectUpdater.WorkerSupportsCancellation = true;
             KinectUpdater.WorkerReportsProgress = true;
@@ -24,8 +25,7 @@ namespace AnubisClient
             KinectUpdater.ProgressChanged += KinectUpdater_ProgressChanged;
             KinectUpdater.RunWorkerCompleted += KinectUpdater_RunWorkerCompleted;
 
-            JointVals = new Point3f[20];
-            JointAngles = new Joint3d[20];
+
 
 
         }
@@ -55,6 +55,26 @@ namespace AnubisClient
                 JointVals[18] = KI.FootRightPos;
                 JointVals[19] = KI.SpineShoulderPos;
 
+                JointAngles[1] = new Joint3d();
+                JointAngles[2] = new Joint3d();
+                JointAngles[3] = new Joint3d();
+                JointAngles[4] = new Joint3d();
+                JointAngles[5] = new Joint3d();
+                JointAngles[6] = new Joint3d();
+                JointAngles[7] = new Joint3d();
+                JointAngles[8] = new Joint3d();
+                JointAngles[9] = new Joint3d();
+                JointAngles[10] = new Joint3d();
+                JointAngles[11] = new Joint3d();
+                JointAngles[12] = new Joint3d();
+                JointAngles[13] = new Joint3d();
+                JointAngles[14] = new Joint3d();
+                JointAngles[15] = new Joint3d();
+                JointAngles[16] = new Joint3d();
+                JointAngles[17] = new Joint3d();
+                JointAngles[18] = new Joint3d();
+                JointAngles[19] = new Joint3d();
+
                 if (KI.tracked_skeletons > 0)
                 {
 
@@ -72,6 +92,7 @@ namespace AnubisClient
                         {
                             //Send Command to Drive left Reverse
                             JointAngles[15].Pitch = 180; // Need to Confirm Command
+                            
                         }
                         //If the users left hand is in front of the center zone, drive left tread forward
                         else if (KI.HandLeftPos.Z < Hip_Center.Z - 0.1)
@@ -89,27 +110,27 @@ namespace AnubisClient
                         if (KI.HandRightPos.Z > Hip_Center.Z + 0.1)
                         {
                             // Send Command to drive Right Backwards
-                            JointAngles[19].Pitch = 180; //Need to Confirm Command
+                            //JointAngles[19].Pitch = 180; //Need to Confirm Command
                         }
                         //If the users right hand is in front of the center zone, drive right tread forward
                         else if (KI.HandRightPos.Z < Hip_Center.Z - 0.1)
                         {
                             //Send Command to drive Right Forwards
-                            JointAngles[19].Pitch = 0; //Need to Comfirm Command
+                           // JointAngles[19].Pitch = 0; //Need to Comfirm Command
                         }
                         //If the users right hand is in the center zone, stop the right tread
                         else if (KI.HandRightPos.Z >= Hip_Center.Z - 0.1 && KI.HandRightPos.Z <= Hip_Center.Z + 0.1)
                         {
                             //Send Command to drive Right Neutral
-                            JointAngles[19].Pitch = 90; //Need to Confirm Command
+                            //JointAngles[19].Pitch = 90; //Need to Confirm Command
                         }
                     }
 
                     //If the users hands are above the belly button, stop both treads. They are now in arm mode.
                     else
                     {
-                        JointAngles[15].Pitch = 90;
-                        JointAngles[19].Pitch = 90;
+                        //JointAngles[15].Pitch = 90;
+                        //JointAngles[19].Pitch = 90;
                     }
 
                     #endregion
@@ -121,13 +142,13 @@ namespace AnubisClient
                     float LDX = KI.ElbowLeftPos.X - KI.ShoulderLeftPos.X;
                     float LDY = KI.ElbowLeftPos.Y - KI.ShoulderLeftPos.Y;
                     double AngleL = Math.Atan(LDY / LDX) * (180 / Math.PI);
-                    JointAngles[4].Pitch = AngleL;
+                    //JointAngles[4].Pitch = AngleL;
 
                     //Left Arm Shoulder Roll
                     float RollLDZ = KI.ShoulderLeftPos.Z - KI.HandLeftPos.Z;
                     float RollLDY = KI.ShoulderLeftPos.Y - KI.HandLeftPos.Y;
                     double RollAngleL = Math.Atan(RollLDY / RollLDZ) * (180 / Math.PI);
-                    JointAngles[4].Roll =((90 - RollAngleL) + 90);
+                   // JointAngles[4].Roll =((90 - RollAngleL) + 90);
 
 
 
@@ -135,13 +156,13 @@ namespace AnubisClient
                     float RDX = KI.ElbowRightPos.X - KI.ShoulderRightPos.X;
                     float RDY = KI.ElbowRightPos.Y - KI.ShoulderRightPos.Y;
                     double AngleR = Math.Atan(RDY / RDX) * (180 / Math.PI) + 180;
-                    JointAngles[8].Pitch = (AngleR);
+                    //JointAngles[8].Pitch = (AngleR);
 
                     //Right Arm Shoulder Roll
                     float RollRDZ = KI.ShoulderRightPos.Z - KI.HandRightPos.Z;
                     float RollRDY = KI.ShoulderRightPos.Y - KI.HandRightPos.Y;
                     double RollAngleR = Math.Atan(RollRDY / RollRDZ) * (180 / Math.PI);
-                    JointAngles[8].Roll =(RollAngleR);
+                    //JointAngles[8].Roll =(RollAngleR);
 
 
                     //}

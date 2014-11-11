@@ -44,7 +44,7 @@ namespace AnubisClient
             {
                 SocketPool.Add(e.Socket);
             }
-            if (e.Socket.readline() == "Johnny 5")
+            if (e.Socket.readline() == "Johnny5")
             {
                 ConnectionPool.Add(new Johnny5(e.Socket));
             }
