@@ -13,9 +13,11 @@ namespace AnubisClient
         private List<Sock> SocketPool;
         private List<RobotInterface> ConnectionPool;
         private NetworkInterface NetFace;
+        private Joint3d[] SkelArray;
         
         public CommunicationsEngine()
         {
+            SkelArray = new Joint3d[20]; 
             CommsSystem = new BackgroundWorker();
             CommsSystem.WorkerSupportsCancellation = true;
             CommsSystem.WorkerReportsProgress = true;
@@ -32,10 +34,7 @@ namespace AnubisClient
 
         public void UpdateRoboSkels(Joint3d[] Skel)
         {
-            foreach (RobotInterface Robot in ConnectionPool)
-            {
-                Robot.UpdateSkeleton(Skel);
-            }
+            SkelArray = Skel;
         }
 
         void NetFace_connectionAccepted(object sender, SockArgs e)
@@ -65,9 +64,14 @@ namespace AnubisClient
             while (!CommsSystem.CancellationPending)
             {
                 NetFace.StartThread();
+                
                 foreach (RobotInterface RI in ConnectionPool)
                 {
-                    RI.SendCommands();
+                    if (RI != null)
+                    {
+                        RI.UpdateSkeleton(SkelArray);
+                        RI.SendCommands();
+                    }
                 }
             }
         }
