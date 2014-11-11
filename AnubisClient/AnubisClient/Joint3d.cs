@@ -14,17 +14,17 @@ namespace AnubisClient
             Pitch = Roll = Yaw = 0;
         }
 
-        public void update(double _Pitch)
+        public void updateP(double _Pitch)
         {
             Pitch = _Pitch;
         }
 
-        public void update(double _Yaw)
+        public void updateY(double _Yaw)
         {
             Yaw = _Yaw;
         }
 
-        public void update(double _Roll)
+        public void updateR(double _Roll)
         {
             Roll = _Roll;
         }

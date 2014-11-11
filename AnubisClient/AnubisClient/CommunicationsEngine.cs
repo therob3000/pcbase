@@ -13,7 +13,7 @@ namespace AnubisClient
         private List<Sock> SocketPool;
         private List<RobotInterface> ConnectionPool;
         private NetworkInterface NetFace;
-        public void CommunicationsEngine()
+        public CommunicationsEngine()
         {
             CommsSystem = new BackgroundWorker();
             CommsSystem.WorkerSupportsCancellation = true;
@@ -27,6 +27,14 @@ namespace AnubisClient
 
             SocketPool = new List<Sock>();
             ConnectionPool = new List<RobotInterface>();
+        }
+
+        public void UpdateRoboSkels(Joint3d[] Skel)
+        {
+            foreach (RobotInterface Robot in ConnectionPool)
+            {
+                Robot.UpdateSkeleton(Skel);
+            }
         }
 
         void NetFace_connectionAccepted(object sender, Sock e)
@@ -55,6 +63,7 @@ namespace AnubisClient
         {
             while (!CommsSystem.CancellationPending)
             {
+                NetFace.StartThread();
                 foreach (RobotInterface RI in ConnectionPool)
                 {
                     RI.SendCommands();

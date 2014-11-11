@@ -12,9 +12,9 @@ using System.Diagnostics;
 namespace AnubisClient
 {
     //Will become the specific drivers to each robot
-    abstract class RobotInterface
+    public abstract class RobotInterface
     {
-        abstract public void UpdateSkeleton();
+        abstract public void UpdateSkeleton(Joint3d[] Skeleton);
         abstract public void UpdateCommand();
         abstract public void ClearCommandList();
         abstract public string[] GetCurrentCommandArray();
@@ -36,7 +36,7 @@ namespace AnubisClient
     public class Johnny5 : RobotInterface
     {
 
-        public void Johnny5(Sock ConnectionSock)
+        public Johnny5(Sock ConnectionSock)
         {
             Command_to_Be_Sent = new string[17];
             RobotConnection = ConnectionSock;

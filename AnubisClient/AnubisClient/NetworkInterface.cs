@@ -20,7 +20,7 @@ namespace AnubisClient
         public event EventHandler<Sock> connectionAccepted;
         public event EventHandler<string> netInterfaceMessage;
 
-        public void NetworkInterface ()
+        public NetworkInterface ()
         {
             NetCommWorker = new BackgroundWorker();
             NetCommWorker.WorkerReportsProgress = true;
@@ -87,6 +87,12 @@ namespace AnubisClient
         private void NetCommWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ssock.close();
+        }
+
+        public void StartThread()
+        {
+            if (!NetCommWorker.IsBusy)
+                NetCommWorker.RunWorkerAsync();
         }
 
     }

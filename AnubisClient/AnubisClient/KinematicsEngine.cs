@@ -13,7 +13,7 @@ namespace AnubisClient
         private Point3f[] JointVals;
         private Joint3d[] JointAngles;
 
-        public void KinematicsEngine()
+        public KinematicsEngine()
         {
             KI = new KinectInterface();
 
@@ -117,12 +117,6 @@ namespace AnubisClient
 
                     //Arm Control involves trig to identify certain angles between points of refference
 
-                    //else //if (KI.HandLeftPos.Y >= Hip_Center.Y + 0.02 && KI.HandRightPos.Y >= Hip_Center.Y + 0.02)
-                    //{
-                    //lbl_DriveMode.Text = "Arm Mode";
-                    //CommandBuilder.UpdateCommand(14, 1500);
-                    //CommandBuilder.UpdateCommand(15, 1500);
-
                     //Left Arm Pitch
                     float LDX = KI.ElbowLeftPos.X - KI.ShoulderLeftPos.X;
                     float LDY = KI.ElbowLeftPos.Y - KI.ShoulderLeftPos.Y;
@@ -184,6 +178,11 @@ namespace AnubisClient
             {
                 KinectUpdater.RunWorkerAsync();
             }
+        }
+
+        public Joint3d[] GetSkeleton()
+        {
+                return JointAngles;
         }
     }
 }
