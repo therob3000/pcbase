@@ -24,12 +24,17 @@ namespace AnubisClient {
 		private static void server_acceptConnections(object sender, DoWorkEventArgs e) {
 			while (!server.CancellationPending) {
 				Sock newconnection = serversock.accept(); // blocks
-				// todo
+				RobotInterface roi = RobotInterface.getNewROIFromHeloString(newconnection);
+				if (roi == null) continue; // socket was cleaned up for us in the getNewROI.... method
+				activeRobots.Add(roi);
 			}
 			cleanupServer();
 		}
 
 		public static void publishNewSkeleton(Joint3d[] skeleton) {
+			for (int i = 0; i < activeRobots.Count; i++) {
+				activeRobots[i].updateSkeleton(skeleton);
+			}
 		}
 
 		public static bool startServer() {
@@ -55,6 +60,10 @@ namespace AnubisClient {
 		}
 
 		private static void cleanupServer() {
+			while (activeRobots.Count > 0) {
+				activeRobots[0].sock_close();
+				activeRobots.RemoveAt(0);
+			}
 			serversock.close();
 			serversock = null;
 		}

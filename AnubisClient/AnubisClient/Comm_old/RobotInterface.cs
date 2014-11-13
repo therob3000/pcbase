@@ -1,44 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using System.Diagnostics;
-
-namespace AnubisClient
-{
-    //Will become the specific drivers to each robot
-    public abstract class RobotInterface
-    {
-        abstract public void UpdateSkeleton(Joint3d[] Skeleton);
-        abstract public void UpdateCommand(int Channel, int Position);
-        abstract public void UpdateCommand(int Channel, double Angle);
-        abstract public void UpdateCommand(int Channel, double Angle, int Speed);
-        abstract public void UpdateCommand(int Channel, int Position, int Speed);
-        abstract public void ClearCommandList();
-        abstract public string[] GetCurrentCommandArray();
-        abstract public string GetCurrentCommand();
-        abstract public void SetToCenter();
-        abstract public void SetToOff();
-
-        abstract public void SendCommands();
-        abstract public string RequestData(string Parameter);
-        abstract public string RequestCommand();
-        abstract public int Ping();
-
-
-        protected Sock RobotConnection;
-
-        protected string[] Command_to_Be_Sent;
+﻿
 
 
 
 
-    }
+
+
+        //abstract public void UpdateCommand(int Channel, int Position);
+        //abstract public void UpdateCommand(int Channel, double Angle);
+        //abstract public void UpdateCommand(int Channel, double Angle, int Speed);
+        //abstract public void UpdateCommand(int Channel, int Position, int Speed);
+        //abstract public void ClearCommandList();
+        //abstract public string[] GetCurrentCommandArray();
+        //abstract public string GetCurrentCommand();
         
     public class Johnny5 : RobotInterface
     {
