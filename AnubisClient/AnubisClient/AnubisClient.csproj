@@ -63,6 +63,7 @@
     <Compile Include="ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommunicationsEngine.cs" />
     <Compile Include="Joint3d.cs" />
     <Compile Include="KinectInterface.cs" />
     <Compile Include="KinematicsEngine.cs" />
