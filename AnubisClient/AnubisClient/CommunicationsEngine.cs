@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace AnubisClient {
 	public static class CommunicationsEngine {
-		public static const int SERVER_PORT = 1337;
+		public const int SERVER_PORT = 1337;
 
 		private static BackgroundWorker server;
 		private static Sock serversock;
@@ -35,6 +35,17 @@ namespace AnubisClient {
 			for (int i = 0; i < activeRobots.Count; i++) {
 				activeRobots[i].updateSkeleton(skeleton);
 			}
+		}
+
+		public static RobotInterface[] getROIsFromHeloString(string helostring) {
+			List<RobotInterface> lst = new List<RobotInterface>();
+
+			for (int i = 0; i < activeRobots.Count; i++) {
+				RobotInterface roi = activeRobots[i];
+				if (roi.getHeloString() == helostring) lst.Add(roi);
+			}
+
+			return lst.ToArray();
 		}
 
 		public static bool startServer() {

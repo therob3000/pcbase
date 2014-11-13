@@ -64,6 +64,8 @@
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CommunicationsEngine.cs" />
+    <Compile Include="GenericEventArgs.cs" />
+    <Compile Include="Johnny5.cs" />
     <Compile Include="Joint3d.cs" />
     <Compile Include="KinectInterface.cs" />
     <Compile Include="KinematicsEngine.cs" />

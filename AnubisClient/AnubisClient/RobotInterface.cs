@@ -34,11 +34,11 @@ namespace AnubisClient {
 			robotsock.sendline(line);
 		}
 
-		protected void sock_invokeProto_solicitRobotResponse_async(string message, EventHandler<string> callback) {
+		protected void sock_invokeProto_solicitRobotResponse_async(string message, EventHandler<GenericEventArgs<string>> callback) {
 			BackgroundWorker transactor = new BackgroundWorker();
 			transactor.DoWork += (object sender, DoWorkEventArgs e) => {
 				string response = robotsock.readline(); // blocks
-				callback(this, response);
+				callback(this, new GenericEventArgs<string>(response));
 			};
 			sock_sendline_sync(message);
 			transactor.RunWorkerAsync();
@@ -52,8 +52,8 @@ namespace AnubisClient {
 		public abstract void updateSkeleton(Joint3d[] skeleton);
 		public abstract void useNeutralSkeleton();
 		public abstract void useNullSkeleton();
-		public abstract bool verifyRobot();
-		public abstract string requestData(string identifier);
-		public abstract int ping();
+		public abstract void verifyRobot(EventHandler<GenericEventArgs<bool>> callback);
+		public abstract void requestData(string identifier, EventHandler<GenericEventArgs<string>> callback);
+		public abstract void ping(EventHandler<GenericEventArgs<long>> callback);
 	}
 }

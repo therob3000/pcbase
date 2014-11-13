@@ -8,7 +8,7 @@ namespace AnubisClient
 {
     static class ANUBISEngine
     {
-        private static CommunicationsEngine CommsEngine = new CommunicationsEngine();
+        //private static CommunicationsEngine CommsEngine = new CommunicationsEngine();
         private static KinematicsEngine KinemEngine = new KinematicsEngine();
         private static BackgroundWorker Engine = new BackgroundWorker();
 
@@ -20,9 +20,10 @@ namespace AnubisClient
             Engine.ProgressChanged += Engine_ProgressChanged;
             Engine.RunWorkerCompleted += Engine_RunWorkerCompleted;
             KinemEngine = new KinematicsEngine();
-            CommsEngine = new CommunicationsEngine();
+            //CommsEngine = new CommunicationsEngine();
+			CommunicationsEngine.initialize();
 
-            CommsEngine.StartThread();
+            //CommsEngine.StartThread();
             KinemEngine.StartThread();
             ANUBISEngine.StartThread();
         }
@@ -41,7 +42,8 @@ namespace AnubisClient
         {
             while (!Engine.CancellationPending)
             {
-                CommsEngine.UpdateRoboSkels(KinemEngine.GetSkeleton());
+                //CommsEngine.UpdateRoboSkels(KinemEngine.GetSkeleton());
+				CommunicationsEngine.publishNewSkeleton(KinemEngine.GetSkeleton());
             }
         }
 
