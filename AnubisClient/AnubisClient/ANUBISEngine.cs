@@ -8,23 +8,19 @@ namespace AnubisClient
 {
     static class ANUBISEngine
     {
-        private static CommunicationsEngine CommsEngine = new CommunicationsEngine();
-        private static KinematicsEngine KinemEngine = new KinematicsEngine();
-        private static BackgroundWorker Engine = new BackgroundWorker();
+        private static CommunicationsEngine CommsEngine;
+        private static KinematicsEngine KinemEngine;
+        private static BackgroundWorker Engine;
 
         public static void Initialize() //Already being called by Program.cs
         {
-            Engine.DoWork += Engine_DoWork;
-            Engine.WorkerSupportsCancellation = true;
-            Engine.WorkerReportsProgress = true;
-            Engine.ProgressChanged += Engine_ProgressChanged;
-            Engine.RunWorkerCompleted += Engine_RunWorkerCompleted;
-            KinemEngine = new KinematicsEngine();
+            
+            
             CommsEngine = new CommunicationsEngine();
-
+            KinemEngine = new KinematicsEngine(CommsEngine);
             CommsEngine.StartThread();
             KinemEngine.StartThread();
-            ANUBISEngine.StartThread();
+
         }
 
         static void Engine_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

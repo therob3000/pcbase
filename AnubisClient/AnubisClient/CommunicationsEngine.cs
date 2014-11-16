@@ -10,7 +10,7 @@ namespace AnubisClient
     class CommunicationsEngine
     {
         private BackgroundWorker CommsSystem;
-        private List<Sock> SocketPool;
+        //private List<Sock> SocketPool;
         private List<RobotInterface> ConnectionPool;
         private NetworkInterface NetFace;
         private Joint3d[] SkelArray;
@@ -28,7 +28,7 @@ namespace AnubisClient
             NetFace = new NetworkInterface();
             NetFace.connectionAccepted += NetFace_connectionAccepted;
 
-            SocketPool = new List<Sock>();
+            //SocketPool = new List<Sock>();
             ConnectionPool = new List<RobotInterface>();
         }
 
@@ -39,10 +39,10 @@ namespace AnubisClient
 
         void NetFace_connectionAccepted(object sender, SockArgs e)
         {
-            if (e != null)
-            {
-                SocketPool.Add(e.Socket);
-            }
+            //if (e != null)
+            //{
+            //    SocketPool.Add(e.Socket);
+            //}
             if (e.Socket.readline() == "Johnny5")
             {
                 ConnectionPool.Add(new Johnny5(e.Socket));
@@ -63,14 +63,21 @@ namespace AnubisClient
         {
             while (!CommsSystem.CancellationPending)
             {
+
                 NetFace.StartThread();
-                
-                foreach (RobotInterface RI in ConnectionPool)
+
+                if (ConnectionPool.Count > 0)
                 {
-                    if (RI != null)
+                    int i = 1;
+                }
+
+                //foreach (RobotInterface RI in ConnectionPool)
+                for (int i = 0; i < ConnectionPool.Count; i++)
+                {
+                    if (ConnectionPool[i] != null)
                     {
-                        RI.UpdateSkeleton(SkelArray);
-                        RI.SendCommands();
+                        ConnectionPool[i].UpdateSkeleton(SkelArray);
+                        ConnectionPool[i].SendCommands();
                     }
                 }
             }

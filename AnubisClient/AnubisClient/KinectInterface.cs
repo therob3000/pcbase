@@ -236,6 +236,7 @@ namespace AnubisClient
                 {
 
                     sensor = sense;
+
                     break;
                 }
             }
@@ -244,7 +245,7 @@ namespace AnubisClient
             {
                 //Begin Skeleton Frame and register with event handler
                 sensor.SkeletonStream.Enable();
-                sensor.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(this.SensorSkeletonFrameReady);
+                sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
 
                 try { sensor.Start(); }
                 catch (IOException)
@@ -296,7 +297,7 @@ namespace AnubisClient
         {
             //Place holder for skeletons
             Skeleton[] skeletons = new Skeleton[0];
-
+            //sensor.SkeletonStream.Enable();
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
             {
                 if (skeletonFrame != null)
@@ -374,7 +375,7 @@ namespace AnubisClient
                 }
                 else if (skeletons.Length == 0)
                 {
-                    //MessageBox.Show("Drew is a...");
+                    MessageBox.Show("Drew is a...");
                 }
                 
             }

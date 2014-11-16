@@ -12,8 +12,10 @@ namespace AnubisClient
         private BackgroundWorker KinectUpdater;
         private Point3f[] JointVals;
         private Joint3d[] JointAngles;
+        private CommunicationsEngine comm_eng;
 
-        public KinematicsEngine()
+
+        public KinematicsEngine(CommunicationsEngine c)
         {
             KI = new KinectInterface();
             JointVals = new Point3f[20];
@@ -24,14 +26,13 @@ namespace AnubisClient
             KinectUpdater.DoWork += KinectUpdater_DoWork;
             KinectUpdater.ProgressChanged += KinectUpdater_ProgressChanged;
             KinectUpdater.RunWorkerCompleted += KinectUpdater_RunWorkerCompleted;
-
-
-
+            comm_eng = c;
 
         }
         #region KinematicCode
         private void KinectUpdater_DoWork(object sender, DoWorkEventArgs e)
         {
+            KI.BeginSensorStream();
             while (!KinectUpdater.CancellationPending)
             {
                 JointVals[0] = KI.SpineBasePos;
@@ -77,7 +78,7 @@ namespace AnubisClient
 
                 if (KI.tracked_skeletons > 0)
                 {
-
+                    
                     #region Drivetrain
                     //This will need some refining in terms of how responsive
                     Point3f Hip_Center = KI.SpineBasePos;
@@ -142,13 +143,13 @@ namespace AnubisClient
                     float LDX = KI.ElbowLeftPos.X - KI.ShoulderLeftPos.X;
                     float LDY = KI.ElbowLeftPos.Y - KI.ShoulderLeftPos.Y;
                     double AngleL = Math.Atan(LDY / LDX) * (180 / Math.PI);
-                    //JointAngles[4].Pitch = AngleL;
+                    JointAngles[4].Pitch = AngleL;
 
                     //Left Arm Shoulder Roll
                     float RollLDZ = KI.ShoulderLeftPos.Z - KI.HandLeftPos.Z;
                     float RollLDY = KI.ShoulderLeftPos.Y - KI.HandLeftPos.Y;
                     double RollAngleL = Math.Atan(RollLDY / RollLDZ) * (180 / Math.PI);
-                   // JointAngles[4].Roll =((90 - RollAngleL) + 90);
+                    JointAngles[4].Roll =((90 - RollAngleL) + 90);
 
 
 
@@ -156,16 +157,18 @@ namespace AnubisClient
                     float RDX = KI.ElbowRightPos.X - KI.ShoulderRightPos.X;
                     float RDY = KI.ElbowRightPos.Y - KI.ShoulderRightPos.Y;
                     double AngleR = Math.Atan(RDY / RDX) * (180 / Math.PI) + 180;
-                    //JointAngles[8].Pitch = (AngleR);
+                    JointAngles[8].Pitch = (AngleR);
 
                     //Right Arm Shoulder Roll
                     float RollRDZ = KI.ShoulderRightPos.Z - KI.HandRightPos.Z;
                     float RollRDY = KI.ShoulderRightPos.Y - KI.HandRightPos.Y;
                     double RollAngleR = Math.Atan(RollRDY / RollRDZ) * (180 / Math.PI);
-                    //JointAngles[8].Roll =(RollAngleR);
+                    JointAngles[8].Roll =(RollAngleR);
 
 
-                    //}
+                    //TODO: Add code to call CommEngine event handler?
+                    comm_eng.UpdateRoboSkels(JointAngles);
+                    
                     #endregion
 
                 }
