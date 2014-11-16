@@ -1,189 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using System.Diagnostics;
+using System.Reflection;
+using System.ComponentModel;
 
-namespace AnubisClient
-{
-    //Will become the specific drivers to each robot
-    public abstract class RobotInterface
-    {
-        abstract public void UpdateSkeleton(Joint3d[] Skeleton);
-        abstract public void UpdateCommand(int Channel, int Position);
-        abstract public void UpdateCommand(int Channel, double Angle);
-        abstract public void UpdateCommand(int Channel, double Angle, int Speed);
-        abstract public void UpdateCommand(int Channel, int Position, int Speed);
-        abstract public void ClearCommandList();
-        abstract public string[] GetCurrentCommandArray();
-        abstract public string GetCurrentCommand();
-        abstract public void SetToCenter();
-        abstract public void SetToOff();
+namespace AnubisClient {
+	public abstract class RobotInterface {
+		private Sock robotsock;
 
-        abstract public void SendCommands();
-        abstract public string RequestData(string Parameter);
-        abstract public string RequestCommand();
-        abstract public int Ping();
+		public RobotInterface(Sock robotsock) {
+			this.robotsock = robotsock;
+		}
 
+		public static RobotInterface getNewROIFromHeloString(Sock sock) {
+			string helo = sock.readline(); // blocks
 
-        protected Sock RobotConnection;
+			Type[] types = Assembly.GetAssembly(typeof(RobotInterface)).GetTypes();
+			for (int i = 0; i < types.Length; i++) {
+				Type t = types[i];
+				if (t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(RobotInterface))) {
+					RobotInterface roi = (RobotInterface)Activator.CreateInstance(t, sock);
+					if (roi.getHeloString() == helo) return roi;
+				}
+			}
 
-        protected string[] Command_to_Be_Sent;
+			sock.sendline("err Your helo string is not recognized.");
+			sock.close();
+			return null;
+		}
 
+		protected void sock_sendline_sync(string line) {
+			robotsock.sendline(line);
+		}
 
+		protected void sock_invokeProto_solicitRobotResponse_async(string message, EventHandler<GenericEventArgs<string>> callback) {
+			BackgroundWorker transactor = new BackgroundWorker();
+			transactor.DoWork += (object sender, DoWorkEventArgs e) => {
+				string response = robotsock.readline(); // blocks
+				callback(this, new GenericEventArgs<string>(response));
+			};
+			sock_sendline_sync(message);
+			transactor.RunWorkerAsync();
+		}
 
+		public void sock_close() {
+			robotsock.close();
+		}
 
-    }
-        
-    public class Johnny5 : RobotInterface
-    {
-
-        public Johnny5(Sock ConnectionSock)
-        {
-            
-            Command_to_Be_Sent = new string[17];
-            RobotConnection = ConnectionSock;
-            
-        }
-        public override void UpdateSkeleton(Joint3d[] Skeleton)
-        {
-            UpdateCommand(3, Skeleton[4].Roll);
-            UpdateCommand(4, Skeleton[4].Pitch);
-
-            UpdateCommand(8, Skeleton[8].Roll);
-            UpdateCommand(9, Skeleton[8].Pitch);
-
-            UpdateCommand(14, Skeleton[15].Pitch);
-            UpdateCommand(15, Skeleton[14].Pitch);
-
-            //More can be Added as Code is added
-
-        }
-        public override void UpdateCommand(int Channel, int Position)
-        {
-            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
-
-        }
-        public override void UpdateCommand(int Channel, double Angle)
-        {
-            double angle = Angle;
-            int Position = (int)(Angle * 10) + 600;
-            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position;
-
-        }
-        public override string[] GetCurrentCommandArray()
-        {
-            return Command_to_Be_Sent;
-        }
-        public override void UpdateCommand(int Channel, int Position, int Speed)
-        {
-            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position + " S" + Speed;
-        }
-        public override void UpdateCommand(int Channel, double Angle, int Speed)
-        {
-            double angle = Angle;
-            int Position = (int)(Angle * 10) + 600;
-            Command_to_Be_Sent[Channel] = "#" + Channel + " P" + Position + " S" + Speed;
-        }
-        public override string GetCurrentCommand()
-        {
-            string Command = "";
-            foreach (string Position in Command_to_Be_Sent)
-            {
-                Command += Position + " ";
-
-            }
-            Command += "\r";
-            return Command;
-
-        }
-        public override void ClearCommandList()
-        {
-
-            for (int i = 0; i < Command_to_Be_Sent.Length; i++)
-            {
-                Command_to_Be_Sent[i] = "";
-            }
-
-        }
-        public override void SetToCenter()
-        {
-            for (int i = 0; i < Command_to_Be_Sent.Length; i++)
-            {
-                Command_to_Be_Sent[i] = "#" + i + " P1500 ";
-            }
-        }
-        public override void SetToOff()
-        {
-            for (int i = 0; i < Command_to_Be_Sent.Length; i++)
-            {
-                if (i == 14 || i == 15)
-                {
-                    Command_to_Be_Sent[i] = "#" + i + " P1500 ";
-                }
-                else
-                {
-                    Command_to_Be_Sent[i] = "#" + i + "L ";
-                }
-            }
-
-        }
-        public override int Ping()
-        {
-            try
-            {
-                Stopwatch time = new Stopwatch();
-                time.Start();
-                RobotConnection.sendline("pg");
-                string message = RobotConnection.readline();
-                time.Stop();
-                return (int)time.ElapsedMilliseconds;
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-        }
-        public override void SendCommands()
-        {
-            try
-            {
-                RobotConnection.sendline(GetCurrentCommand());
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-        public override string RequestCommand()
-        {
-            try
-            {
-                RobotConnection.sendline("rv");
-                return RobotConnection.readline();
-            }
-            catch (Exception ex)
-            {
-                return "Net Error";
-            }  
-        }
-        public override string RequestData(string Paramater)
-        {
-            try
-            {
-                RobotConnection.sendline("rd " + Paramater);
-                return RobotConnection.readline();
-            }
-            catch (Exception ex)
-            {
-                return "Net Error";
-            }
-            
-        }
-    }
+		public abstract string getHeloString();
+		public abstract void updateSkeleton(Joint3d[] skeleton);
+		public abstract void useNeutralSkeleton();
+		public abstract void useNullSkeleton();
+		public abstract void verifyRobot(EventHandler<GenericEventArgs<bool>> callback);
+		public abstract void requestData(string identifier, EventHandler<GenericEventArgs<string>> callback);
+		public abstract void ping(EventHandler<GenericEventArgs<long>> callback);
+	}
 }

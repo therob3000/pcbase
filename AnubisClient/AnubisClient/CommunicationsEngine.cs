@@ -1,94 +1,87 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
-namespace AnubisClient
-{
-    class CommunicationsEngine
-    {
-        private BackgroundWorker CommsSystem;
-        //private List<Sock> SocketPool;
-        private List<RobotInterface> ConnectionPool;
-        private NetworkInterface NetFace;
-        private Joint3d[] SkelArray;
-        
-        public CommunicationsEngine()
-        {
-            SkelArray = new Joint3d[20]; 
-            CommsSystem = new BackgroundWorker();
-            CommsSystem.WorkerSupportsCancellation = true;
-            CommsSystem.WorkerReportsProgress = true;
-            CommsSystem.DoWork += CommsSystem_DoWork;
-            CommsSystem.ProgressChanged += CommsSystem_ProgressChanged;
-            CommsSystem.RunWorkerCompleted += CommsSystem_RunWorkerCompleted;
+namespace AnubisClient {
+	public static class CommunicationsEngine {
+		public const int SERVER_PORT = 1337;
 
-            NetFace = new NetworkInterface();
-            NetFace.connectionAccepted += NetFace_connectionAccepted;
+		private static BackgroundWorker server;
+		private static Sock serversock;
+		private static List<RobotInterface> activeRobots;
 
-            //SocketPool = new List<Sock>();
-            ConnectionPool = new List<RobotInterface>();
-        }
+		public static void initialize() {
+			server = new BackgroundWorker();
+			server.WorkerSupportsCancellation = true;
+			server.DoWork += new DoWorkEventHandler(server_acceptConnections);
+			activeRobots = new List<RobotInterface>();
+			// do not need to init serversock here
+		}
 
-        public void UpdateRoboSkels(Joint3d[] Skel)
-        {
-            SkelArray = Skel;
-        }
+		private static void server_acceptConnections(object sender, DoWorkEventArgs e) {
+			while (!server.CancellationPending) {
+				Sock newconnection = serversock.accept(); // blocks
+				RobotInterface roi = RobotInterface.getNewROIFromHeloString(newconnection);
+				if (roi == null) continue; // socket was cleaned up for us in the getNewROI.... method
+				activeRobots.Add(roi);
+			}
+			cleanupServer();
+		}
 
-        void NetFace_connectionAccepted(object sender, SockArgs e)
-        {
-            //if (e != null)
-            //{
-            //    SocketPool.Add(e.Socket);
-            //}
-            if (e.Socket.readline() == "Johnny5")
-            {
-                ConnectionPool.Add(new Johnny5(e.Socket));
-            }
-        }
 
-        void CommsSystem_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            
-        }
+		public static void publishNewSkeleton(Joint3d[] skeleton) {
+			for (int i = 0; i < activeRobots.Count; i++) {
+				activeRobots[i].updateSkeleton(skeleton);
+			}
+		}
 
-        void CommsSystem_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            
-        }
 
-        void CommsSystem_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (!CommsSystem.CancellationPending)
-            {
+		public static RobotInterface[] getROIsFromHeloString(string helostring) {
+			List<RobotInterface> lst = new List<RobotInterface>();
 
-                NetFace.StartThread();
+			for (int i = 0; i < activeRobots.Count; i++) {
+				RobotInterface roi = activeRobots[i];
+				if (roi.getHeloString() == helostring) lst.Add(roi);
+			}
 
-                if (ConnectionPool.Count > 0)
-                {
-                    int i = 1;
-                }
+			return lst.ToArray();
+		}
 
-                //foreach (RobotInterface RI in ConnectionPool)
-                for (int i = 0; i < ConnectionPool.Count; i++)
-                {
-                    if (ConnectionPool[i] != null)
-                    {
-                        ConnectionPool[i].UpdateSkeleton(SkelArray);
-                        ConnectionPool[i].SendCommands();
-                    }
-                }
-            }
-        }
 
-        public void StartThread()
-        {
-            if (!CommsSystem.IsBusy)
-            {
-                CommsSystem.RunWorkerAsync();
-            }
-        }
-    }
+		public static bool startServer() {
+			if (server.IsBusy) return false;
+
+
+			try {
+				serversock = new Sock(SERVER_PORT);
+				serversock.listen();
+				server.RunWorkerAsync();
+			}
+			catch {
+				cleanupServer();
+				return false;
+			}
+
+			return true;
+		}
+
+
+		public static bool stopServer() {
+			if (!server.IsBusy) return false;
+			server.CancelAsync();
+			return true;
+		}
+
+		private static void cleanupServer() {
+			while (activeRobots.Count > 0) {
+				activeRobots[0].sock_close();
+				activeRobots.RemoveAt(0);
+			}
+			serversock.close();
+			serversock = null;
+		}
+	}
 }

@@ -37,7 +37,8 @@ namespace AnubisClient
         {
             while (!Engine.CancellationPending)
             {
-                CommsEngine.UpdateRoboSkels(KinemEngine.GetSkeleton());
+                //CommsEngine.UpdateRoboSkels(KinemEngine.GetSkeleton());
+				CommunicationsEngine.publishNewSkeleton(KinemEngine.GetSkeleton());
             }
         }
 

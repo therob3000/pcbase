@@ -5,137 +5,73 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 
-namespace AnubisClient
-{
-    public class Sock
-    {
-        private Socket sock;
-        private int _port;
-        private string _rmtHost;
+namespace AnubisClient {
+	public class Sock {
+		private Socket sock;
+		private string _rmtHost;
+		private int _port;
 
-        public string rmtHost
-        {
-            get
-            {
-                return _rmtHost;
-            }
-        }
+		public string rmtHost {
+			get {
+				return _rmtHost;
+			}
+		}
 
-        public int port
-        {
-            get
-            {
-                return _port;
-            }
-        }
+		public int port {
+			get {
+				return _port;
+			}
+		}
 
-        public Sock(int Port)
-        {
-            sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _rmtHost = "";
-            _port = Port;
-            sock.ReceiveTimeout = 300000;
-            sock.Bind(new IPEndPoint(0, _port));
-            
-        }
+		public Sock(int port) { // Server Constructor
+			sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			_rmtHost = "";
+			_port = port;
+			sock.ReceiveTimeout = 300000;
+			sock.Bind(new IPEndPoint(0, _port));
+		}
 
-        public Sock(string RemoteHost, int Port)
-        {
-            sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _rmtHost = RemoteHost;
-            _port = Port;
-            sock.ReceiveTimeout = 300000;
-            IPAddress[] ipas = Dns.GetHostAddresses(_rmtHost);
-            sock.Connect(ipas[ipas.Length - 1], _port);
-        }
+		public Sock(string rmtHost, int port) { // Client Constructor
+			sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			_rmtHost = rmtHost;
+			_port = port;
+			sock.ReceiveTimeout = 300000;
+			IPAddress[] ipas = Dns.GetHostAddresses(_rmtHost);
+			sock.Connect(ipas[ipas.Length - 1], _port);
+		}
 
-        private Sock(Socket sockt, string RemoteHost, int Port)
-        {
-            this.sock = sockt;
-            _rmtHost = RemoteHost;
-            _port = Port;
-        }
+		private Sock(Socket sock, string rmtHost, int port) { // Accept Constructor
+			this.sock = sock;
+			_rmtHost = rmtHost;
+			_port = port;
+		}
 
-        public void Listen()
-        {
-            sock.Listen(10);
-        }
+		public void listen() {
+			sock.Listen(10);
+		}
 
-        public Sock Accept()
-        {
-            return new Sock(sock.Accept(), rmtHost, port);
-        }
+		public Sock accept() {
+			return new Sock(sock.Accept(), rmtHost, port);
+		}
 
-        public void sendline(string line)
-        {
-            sock.Send(ASCIIEncoding.ASCII.GetBytes(line + "\n"));
-        }
+		public void sendline(string line) {
+			sock.Send(ASCIIEncoding.ASCII.GetBytes(line + "\n")); // Append a new-line when sending
+		}
 
-        public string readline()
-        {
-            string message = "";
-            while (true)
-            {
-                byte[] bytes = new byte[1024];
-                int bytesrec = sock.Receive(bytes);
-                message += Encoding.ASCII.GetString(bytes, 0, bytesrec);
-                if (message.IndexOf("\n") > 1) break;
-            }
-            message = message.Substring(0, message.Length - 1);
-            return message;
-        }
+		public string readline() { // blocks
+			string message = "";
+			while (true) {
+				byte[] bytes = new byte[1024];
+				int bytesrec = sock.Receive(bytes);
+				message += Encoding.ASCII.GetString(bytes, 0, bytesrec);
+				if (message.IndexOf("\n") > 1) break; // Use new-line to identify end-of-message
+			}
+			message = message.Substring(0, message.Length - 1); // Strip new-line when receiving
+			return message;
+		}
 
-        public string readData(string Paramater)
-        {
-            string r_message = "";
-            string s_message = "rd " + Paramater;
-            sock.Send(ASCIIEncoding.ASCII.GetBytes(s_message + "\n"));
-            try
-            {
-                while (true)
-                {
-                    byte[] bytes = new byte[1024];
-                    int bytesrec = sock.Receive(bytes);
-                    r_message += Encoding.ASCII.GetString(bytes, 0, bytesrec);
-                    if (r_message.IndexOf("\n") > 1) break;
-                }
-                r_message = r_message.Substring(0, r_message.Length - 1);
-                return r_message;
-            }
-
-            catch
-            {
-                return "Network Error";
-            }
-        }
-
-        public string readCommand()
-        {
-            string r_message = "";
-            string s_message = "rv";
-            sock.Send(ASCIIEncoding.ASCII.GetBytes(s_message + "\n"));
-            try
-            {
-                while (true)
-                {
-                    byte[] bytes = new byte[1024];
-                    int bytesrec = sock.Receive(bytes);
-                    r_message += Encoding.ASCII.GetString(bytes, 0, bytesrec);
-                    if (r_message.IndexOf("\n") > 1) break;
-                }
-                r_message = r_message.Substring(0, r_message.Length - 1);
-                return r_message;
-            }
-
-            catch
-            {
-                return "Network Error";
-            }
-        }
-
-        public void close()
-        {
-            sock.Close();
-        }
-    }
+		public void close() {
+			sock.Close();
+		}
+	}
 }
