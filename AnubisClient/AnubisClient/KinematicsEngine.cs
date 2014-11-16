@@ -12,10 +12,9 @@ namespace AnubisClient
         private BackgroundWorker KinectUpdater;
         private Point3f[] JointVals;
         private Joint3d[] JointAngles;
-        private CommunicationsEngine comm_eng;
 
 
-        public KinematicsEngine(CommunicationsEngine c)
+        public KinematicsEngine()
         {
             KI = new KinectInterface();
             JointVals = new Point3f[20];
@@ -26,7 +25,6 @@ namespace AnubisClient
             KinectUpdater.DoWork += KinectUpdater_DoWork;
             KinectUpdater.ProgressChanged += KinectUpdater_ProgressChanged;
             KinectUpdater.RunWorkerCompleted += KinectUpdater_RunWorkerCompleted;
-            comm_eng = c;
 
         }
         #region KinematicCode
@@ -167,7 +165,7 @@ namespace AnubisClient
 
 
                     //TODO: Add code to call CommEngine event handler?
-                    comm_eng.UpdateRoboSkels(JointAngles);
+                    CommunicationsEngine.publishNewSkeleton(JointAngles);
                     
                     #endregion
 

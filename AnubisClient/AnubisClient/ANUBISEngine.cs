@@ -8,7 +8,7 @@ namespace AnubisClient
 {
     static class ANUBISEngine
     {
-        private static CommunicationsEngine CommsEngine;
+
         private static KinematicsEngine KinemEngine;
         private static BackgroundWorker Engine;
 
@@ -16,9 +16,9 @@ namespace AnubisClient
         {
             
             
-            CommsEngine = new CommunicationsEngine();
-            KinemEngine = new KinematicsEngine(CommsEngine);
-            CommsEngine.StartThread();
+            CommunicationsEngine.initialize();
+            CommunicationsEngine.startServer();
+            KinemEngine = new KinematicsEngine();
             KinemEngine.StartThread();
 
         }

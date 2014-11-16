@@ -11,7 +11,7 @@ namespace AnubisClient
 
         public Joint3d()
         {
-            Pitch = Roll = Yaw = 0;
+            Pitch = Roll = Yaw = -1;
         }
 
         public void updateP(double _Pitch)

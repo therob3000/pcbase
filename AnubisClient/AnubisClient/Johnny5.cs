@@ -13,7 +13,11 @@ namespace AnubisClient {
 		}
 
 		private int angleDecode(double angle) {
-			return (int)(angle * 10) + 600;
+            if (angle >= 0 && angle < 180)
+            {
+                return (int)(angle * 10) + 600;
+            }
+            return 1500;
 		}
 
 		private string createVector() {
