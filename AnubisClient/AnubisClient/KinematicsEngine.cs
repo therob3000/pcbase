@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace AnubisClient
 {
@@ -12,10 +13,11 @@ namespace AnubisClient
         private BackgroundWorker KinectUpdater;
         private Point3f[] JointVals;
         private Joint3d[] JointAngles;
+        private ClientForm form;
 
-
-        public KinematicsEngine()
+        public KinematicsEngine(ClientForm c)
         {
+            form = c;
             KI = new KinectInterface();
             JointVals = new Point3f[20];
             JointAngles = new Joint3d[20];
@@ -30,7 +32,9 @@ namespace AnubisClient
         #region KinematicCode
         private void KinectUpdater_DoWork(object sender, DoWorkEventArgs e)
         {
+
             KI.BeginSensorStream();
+
             while (!KinectUpdater.CancellationPending)
             {
                 JointVals[0] = KI.SpineBasePos;
@@ -81,6 +85,8 @@ namespace AnubisClient
                     //This will need some refining in terms of how responsive
                     Point3f Hip_Center = KI.SpineBasePos;
 
+                    
+
                     //Drive Mode
                     //When the users hands are below their belly button, the user is in drive mode
                     if (KI.HandLeftPos.Y < Hip_Center.Y + 0.02 && KI.HandRightPos.Y < Hip_Center.Y + 0.02)
@@ -90,14 +96,14 @@ namespace AnubisClient
                         if (KI.HandLeftPos.Z > Hip_Center.Z + 0.1)
                         {
                             //Send Command to Drive left Reverse
-                            JointAngles[15].Pitch = 180; // Need to Confirm Command
+                            JointAngles[15].Pitch = 120; // Need to Confirm Command
                             
                         }
                         //If the users left hand is in front of the center zone, drive left tread forward
                         else if (KI.HandLeftPos.Z < Hip_Center.Z - 0.1)
                         {
                             //Send Command to drive left Forwards
-                            JointAngles[15].Pitch = 0; //Need to Confirm Command
+                            JointAngles[15].Pitch = 60; //Need to Confirm Command
                         }
                         //If the users left hand is in the center zone, stop the left tread
                         else if (KI.HandLeftPos.Z >= Hip_Center.Z - 0.1 && KI.HandLeftPos.Z <= Hip_Center.Z + 0.1)
@@ -109,27 +115,27 @@ namespace AnubisClient
                         if (KI.HandRightPos.Z > Hip_Center.Z + 0.1)
                         {
                             // Send Command to drive Right Backwards
-                            //JointAngles[19].Pitch = 180; //Need to Confirm Command
+                            JointAngles[14].Pitch = 120; //Need to Confirm Command
                         }
                         //If the users right hand is in front of the center zone, drive right tread forward
                         else if (KI.HandRightPos.Z < Hip_Center.Z - 0.1)
                         {
                             //Send Command to drive Right Forwards
-                           // JointAngles[19].Pitch = 0; //Need to Comfirm Command
+                            JointAngles[14].Pitch = 60; //Need to Comfirm Command
                         }
                         //If the users right hand is in the center zone, stop the right tread
                         else if (KI.HandRightPos.Z >= Hip_Center.Z - 0.1 && KI.HandRightPos.Z <= Hip_Center.Z + 0.1)
                         {
                             //Send Command to drive Right Neutral
-                            //JointAngles[19].Pitch = 90; //Need to Confirm Command
+                            JointAngles[14].Pitch = 90; //Need to Confirm Command
                         }
                     }
 
                     //If the users hands are above the belly button, stop both treads. They are now in arm mode.
                     else
                     {
-                        //JointAngles[15].Pitch = 90;
-                        //JointAngles[19].Pitch = 90;
+                        JointAngles[15].Pitch = 90;
+                        JointAngles[14].Pitch = 90;
                     }
 
                     #endregion
@@ -166,7 +172,15 @@ namespace AnubisClient
 
                     //TODO: Add code to call CommEngine event handler?
                     CommunicationsEngine.publishNewSkeleton(JointAngles);
-                    
+
+                    //This could be a really bad idea...  But it works!
+                    //Relieves network congestion by slowing down direct calls to sock.send.
+                    //However this will also slow down our own processing.
+                    Thread.Sleep(100);
+
+
+                    KinectUpdater.ReportProgress(0, JointAngles);
+
                     #endregion
 
                 }
@@ -190,7 +204,7 @@ namespace AnubisClient
         private void KinectUpdater_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //Set some kind of message here if needed
-            
+            form.set_gui_label_kinematics(((Joint3d[])e.UserState)[15].Pitch.ToString());
         }
         #endregion
 

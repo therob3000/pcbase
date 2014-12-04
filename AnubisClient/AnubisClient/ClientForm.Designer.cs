@@ -38,6 +38,8 @@
             this.kinect3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kinect4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.networkWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gui_joint_angles_label = new System.Windows.Forms.Label();
+            this.gui_comm_message_label = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +52,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(802, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // viewWindowsToolStripMenuItem
             // 
@@ -109,11 +112,31 @@
             this.networkWindowToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.networkWindowToolStripMenuItem.Text = "Network Window";
             // 
+            // gui_joint_angles_label
+            // 
+            this.gui_joint_angles_label.AutoSize = true;
+            this.gui_joint_angles_label.Location = new System.Drawing.Point(228, 240);
+            this.gui_joint_angles_label.Name = "gui_joint_angles_label";
+            this.gui_joint_angles_label.Size = new System.Drawing.Size(77, 13);
+            this.gui_joint_angles_label.TabIndex = 2;
+            this.gui_joint_angles_label.Text = "stuff goes here";
+            // 
+            // gui_comm_message_label
+            // 
+            this.gui_comm_message_label.AutoSize = true;
+            this.gui_comm_message_label.Location = new System.Drawing.Point(228, 274);
+            this.gui_comm_message_label.Name = "gui_comm_message_label";
+            this.gui_comm_message_label.Size = new System.Drawing.Size(77, 13);
+            this.gui_comm_message_label.TabIndex = 3;
+            this.gui_comm_message_label.Text = "stuff goes here";
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 524);
+            this.Controls.Add(this.gui_comm_message_label);
+            this.Controls.Add(this.gui_joint_angles_label);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ClientForm";
@@ -140,6 +163,8 @@
         private System.Windows.Forms.ToolStripMenuItem kinect3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kinect4ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem networkWindowToolStripMenuItem;
+        private System.Windows.Forms.Label gui_joint_angles_label;
+        private System.Windows.Forms.Label gui_comm_message_label;
 
 
     }

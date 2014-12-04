@@ -10,14 +10,16 @@ namespace AnubisClient {
 
 		public Johnny5(Sock sock) : base(sock) {
 			servoPositions = new int[17];
+            for (int i = 0; i < servoPositions.Length; i++)
+            {
+                servoPositions[i] = 1500;
+            }
 		}
 
 		private int angleDecode(double angle) {
-            if (angle >= 0 && angle < 180)
-            {
-                return (int)(angle * 10) + 600;
-            }
-            return 1500;
+            if (angle < 0) return 600;
+            if (angle > 180) return 2400;
+            return (int)(angle * 10) + 600;
 		}
 
 		private string createVector() {
@@ -42,11 +44,11 @@ namespace AnubisClient {
 		}
 
 		public override void updateSkeleton(Joint3d[] skeleton) {
-			servoPositions[3] = angleDecode(skeleton[4].Roll);
-			servoPositions[4] = angleDecode(skeleton[4].Pitch);
+			servoPositions[3] = angleDecode(skeleton[8].Roll);
+			servoPositions[4] = angleDecode(skeleton[8].Pitch);
 
-			servoPositions[8] = angleDecode(skeleton[8].Roll);
-			servoPositions[9] = angleDecode(skeleton[8].Pitch);
+			servoPositions[8] = angleDecode(skeleton[4].Roll);
+			servoPositions[9] = angleDecode(skeleton[4].Pitch);
 
 			servoPositions[14] = angleDecode(skeleton[15].Pitch);
 			servoPositions[15] = angleDecode(skeleton[14].Pitch);

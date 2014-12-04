@@ -22,7 +22,6 @@ namespace AnubisClient
         }
 
 
-
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
 
@@ -52,6 +51,20 @@ namespace AnubisClient
         private void commandViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
+        }
+
+        public void set_gui_label_kinematics(string text)
+        {
+            gui_joint_angles_label.Text = text;
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "Kinect 1")
+            {
+                NetworkView view = new NetworkView();
+                view.Show();
+            }
         }
 
         

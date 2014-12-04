@@ -11,14 +11,15 @@ namespace AnubisClient
 
         private static KinematicsEngine KinemEngine;
         private static BackgroundWorker Engine;
+        private static ClientForm form;
 
-        public static void Initialize() //Already being called by Program.cs
+        public static void Initialize(ClientForm c) //Already being called by Program.cs
         {
-            
+            form = c;
             
             CommunicationsEngine.initialize();
             CommunicationsEngine.startServer();
-            KinemEngine = new KinematicsEngine();
+            KinemEngine = new KinematicsEngine(form);
             KinemEngine.StartThread();
 
         }

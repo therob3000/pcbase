@@ -247,11 +247,11 @@ namespace AnubisClient
                 sensor.SkeletonStream.Enable();
                 sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
 
-                try { sensor.Start(); }
-                catch (IOException)
-                {
-                    sensor = null;
-                }
+                //try { sensor.Start(); }
+                //catch (IOException)
+                //{
+                //    sensor = null;
+                //}
             }
 
             //Catch if there is no sensor
@@ -261,7 +261,7 @@ namespace AnubisClient
             }
 
             //Initialize Speech Engine
-            BootSpeechEngine();
+            //BootSpeechEngine();
         }
 
 
@@ -373,10 +373,6 @@ namespace AnubisClient
                     }
                   
                 }
-                else if (skeletons.Length == 0)
-                {
-                    MessageBox.Show("Drew is a...");
-                }
                 
             }
         }
@@ -452,7 +448,11 @@ namespace AnubisClient
         {
             if (sensor != null)
             {
-                sensor.Start();
+                try { sensor.Start(); }
+                catch (IOException)
+                {
+                    sensor = null;
+                }
             }
         }
 
