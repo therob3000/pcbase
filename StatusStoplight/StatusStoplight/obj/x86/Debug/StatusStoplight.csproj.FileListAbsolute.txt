@@ -1,0 +1,5 @@
+C:\Users\Kyltmer\Documents\Git Clones\pcbase\StatusStoplight\StatusStoplight\bin\Debug\StatusStoplight.exe
+C:\Users\Kyltmer\Documents\Git Clones\pcbase\StatusStoplight\StatusStoplight\bin\Debug\StatusStoplight.pdb
+C:\Users\Kyltmer\Documents\Git Clones\pcbase\StatusStoplight\StatusStoplight\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Kyltmer\Documents\Git Clones\pcbase\StatusStoplight\StatusStoplight\obj\x86\Debug\StatusStoplight.exe
+C:\Users\Kyltmer\Documents\Git Clones\pcbase\StatusStoplight\StatusStoplight\obj\x86\Debug\StatusStoplight.pdb
