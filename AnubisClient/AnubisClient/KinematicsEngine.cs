@@ -204,7 +204,7 @@ namespace AnubisClient
         private void KinectUpdater_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //Set some kind of message here if needed
-            form.set_gui_label_kinematics(((Joint3d[])e.UserState)[15].Pitch.ToString());
+            
         }
         #endregion
 

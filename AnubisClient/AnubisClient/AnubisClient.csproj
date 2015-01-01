@@ -65,26 +65,59 @@
     </Compile>
     <Compile Include="CommunicationsEngine.cs" />
     <Compile Include="GenericEventArgs.cs" />
-    <Compile Include="Johnny5.cs" />
-    <Compile Include="Joint3d.cs" />
-    <Compile Include="KinectInterface.cs" />
-    <Compile Include="KinematicsEngine.cs" />
-    <Compile Include="NetworkView.cs">
+    <Compile Include="Hardware Details.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NetworkView.Designer.cs">
-      <DependentUpon>NetworkView.cs</DependentUpon>
+    <Compile Include="Hardware Details.Designer.cs">
+      <DependentUpon>Hardware Details.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Johnny5.cs" />
+    <Compile Include="Joint3d.cs" />
+    <Compile Include="Kinect Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Kinect Form.Designer.cs">
+      <DependentUpon>Kinect Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KinectInterface.cs" />
+    <Compile Include="KinematicsEngine.cs" />
+    <Compile Include="Leap Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Leap Form.Designer.cs">
+      <DependentUpon>Leap Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Network Details.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Network Details.Designer.cs">
+      <DependentUpon>Network Details.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Oculus Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Oculus Form.Designer.cs">
+      <DependentUpon>Oculus Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="Point3f.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Robot Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Robot Form.Designer.cs">
+      <DependentUpon>Robot Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="RobotInterface.cs" />
     <Compile Include="Sock.cs" />
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NetworkView.resx">
-      <DependentUpon>NetworkView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -20,7 +20,6 @@ C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\bi
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\bin\Debug\AnubisClient.pdb
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
-C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.CommandView.resources
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe.config
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.ClientForm.resources
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.NetworkView.resources
