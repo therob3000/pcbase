@@ -42,3 +42,4 @@ C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\obj\x86\D
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csprojResolveAssemblyReference.cache
+C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.Robot_Form.resources

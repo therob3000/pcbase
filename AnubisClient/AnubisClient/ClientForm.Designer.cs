@@ -32,18 +32,18 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.viewWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kinnectWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kinect4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.networkWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kinect2ToolStripMenuItem = new System.Windows.Forms.ToolStripComboBox();
-            this.kinect3ToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
-            this.leapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kinect1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hardwareDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.activeRobotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.networkSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kinnectWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kinect1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kinect2ToolStripMenuItem = new System.Windows.Forms.ToolStripComboBox();
+            this.kinect3ToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.kinect4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.leapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hardwareDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.networkWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,67 +78,6 @@
             this.commandViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.commandViewToolStripMenuItem.Text = "Network";
             // 
-            // kinnectWindowsToolStripMenuItem
-            // 
-            this.kinnectWindowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.kinect1ToolStripMenuItem,
-            this.kinect2ToolStripMenuItem,
-            this.kinect3ToolStripMenuItem,
-            this.kinect4ToolStripMenuItem,
-            this.leapToolStripMenuItem,
-            this.hardwareDetailsToolStripMenuItem});
-            this.kinnectWindowsToolStripMenuItem.Name = "kinnectWindowsToolStripMenuItem";
-            this.kinnectWindowsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.kinnectWindowsToolStripMenuItem.Text = "Hardware";
-            // 
-            // kinect4ToolStripMenuItem
-            // 
-            this.kinect4ToolStripMenuItem.Name = "kinect4ToolStripMenuItem";
-            this.kinect4ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.kinect4ToolStripMenuItem.Text = "Oculus";
-            // 
-            // networkWindowToolStripMenuItem
-            // 
-            this.networkWindowToolStripMenuItem.Name = "networkWindowToolStripMenuItem";
-            this.networkWindowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.networkWindowToolStripMenuItem.Text = "Options";
-            // 
-            // kinect2ToolStripMenuItem
-            // 
-            this.kinect2ToolStripMenuItem.Items.AddRange(new object[] {
-            "Kinect 1",
-            "Kinect 2",
-            "Kinect 3",
-            "Kinect 4"});
-            this.kinect2ToolStripMenuItem.Name = "kinect2ToolStripMenuItem";
-            this.kinect2ToolStripMenuItem.Size = new System.Drawing.Size(152, 23);
-            this.kinect2ToolStripMenuItem.Text = "Kinect 2";
-            // 
-            // kinect3ToolStripMenuItem
-            // 
-            this.kinect3ToolStripMenuItem.Name = "kinect3ToolStripMenuItem";
-            this.kinect3ToolStripMenuItem.Size = new System.Drawing.Size(209, 6);
-            // 
-            // leapToolStripMenuItem
-            // 
-            this.leapToolStripMenuItem.Name = "leapToolStripMenuItem";
-            this.leapToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.leapToolStripMenuItem.Text = "Leap";
-            // 
-            // kinect1ToolStripMenuItem
-            // 
-            this.kinect1ToolStripMenuItem.BackColor = System.Drawing.SystemColors.Window;
-            this.kinect1ToolStripMenuItem.Enabled = false;
-            this.kinect1ToolStripMenuItem.Name = "kinect1ToolStripMenuItem";
-            this.kinect1ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.kinect1ToolStripMenuItem.Text = "Active Kinects";
-            // 
-            // hardwareDetailsToolStripMenuItem
-            // 
-            this.hardwareDetailsToolStripMenuItem.Name = "hardwareDetailsToolStripMenuItem";
-            this.hardwareDetailsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.hardwareDetailsToolStripMenuItem.Text = "Hardware Details";
-            // 
             // activeRobotsToolStripMenuItem
             // 
             this.activeRobotsToolStripMenuItem.Enabled = false;
@@ -161,6 +100,68 @@
             this.networkSettingsToolStripMenuItem.Name = "networkSettingsToolStripMenuItem";
             this.networkSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.networkSettingsToolStripMenuItem.Text = "Network Details";
+            // 
+            // kinnectWindowsToolStripMenuItem
+            // 
+            this.kinnectWindowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kinect1ToolStripMenuItem,
+            this.kinect2ToolStripMenuItem,
+            this.kinect3ToolStripMenuItem,
+            this.kinect4ToolStripMenuItem,
+            this.leapToolStripMenuItem,
+            this.hardwareDetailsToolStripMenuItem});
+            this.kinnectWindowsToolStripMenuItem.Name = "kinnectWindowsToolStripMenuItem";
+            this.kinnectWindowsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.kinnectWindowsToolStripMenuItem.Text = "Hardware";
+            // 
+            // kinect1ToolStripMenuItem
+            // 
+            this.kinect1ToolStripMenuItem.BackColor = System.Drawing.SystemColors.Window;
+            this.kinect1ToolStripMenuItem.Enabled = false;
+            this.kinect1ToolStripMenuItem.Name = "kinect1ToolStripMenuItem";
+            this.kinect1ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.kinect1ToolStripMenuItem.Text = "Active Kinects";
+            // 
+            // kinect2ToolStripMenuItem
+            // 
+            this.kinect2ToolStripMenuItem.Items.AddRange(new object[] {
+            "Kinect 1",
+            "Kinect 2",
+            "Kinect 3",
+            "Kinect 4"});
+            this.kinect2ToolStripMenuItem.Name = "kinect2ToolStripMenuItem";
+            this.kinect2ToolStripMenuItem.Size = new System.Drawing.Size(152, 23);
+            this.kinect2ToolStripMenuItem.Text = "Kinect 2";
+            // 
+            // kinect3ToolStripMenuItem
+            // 
+            this.kinect3ToolStripMenuItem.Name = "kinect3ToolStripMenuItem";
+            this.kinect3ToolStripMenuItem.Size = new System.Drawing.Size(209, 6);
+            // 
+            // kinect4ToolStripMenuItem
+            // 
+            this.kinect4ToolStripMenuItem.Name = "kinect4ToolStripMenuItem";
+            this.kinect4ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.kinect4ToolStripMenuItem.Text = "Oculus";
+            // 
+            // leapToolStripMenuItem
+            // 
+            this.leapToolStripMenuItem.Name = "leapToolStripMenuItem";
+            this.leapToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.leapToolStripMenuItem.Text = "Leap";
+            // 
+            // hardwareDetailsToolStripMenuItem
+            // 
+            this.hardwareDetailsToolStripMenuItem.Name = "hardwareDetailsToolStripMenuItem";
+            this.hardwareDetailsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.hardwareDetailsToolStripMenuItem.Text = "Hardware Details";
+            // 
+            // networkWindowToolStripMenuItem
+            // 
+            this.networkWindowToolStripMenuItem.Name = "networkWindowToolStripMenuItem";
+            this.networkWindowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.networkWindowToolStripMenuItem.Text = "Options";
+            this.networkWindowToolStripMenuItem.Click += new System.EventHandler(this.networkWindowToolStripMenuItem_Click);
             // 
             // ClientForm
             // 

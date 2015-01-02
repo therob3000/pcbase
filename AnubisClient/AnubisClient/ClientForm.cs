@@ -15,15 +15,22 @@ namespace AnubisClient
     {
 
         RobotInterface ROI;
+        Robot_Form RF;
         public ClientForm()
         {
             this.IsMdiContainer = true;
+            RF = new Robot_Form();
             InitializeComponent();
         }
 
         public void set_gui_label_kinematics(string text)
         {
             
+        }
+
+        private void networkWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RF.Show();
         }
         
     }
