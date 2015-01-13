@@ -20,7 +20,9 @@ namespace AnubisClient
         {
             this.IsMdiContainer = true;
             RF = new Robot_Form();
+            RF.MdiParent = this;
             InitializeComponent();
+            
         }
 
         public void set_gui_label_kinematics(string text)

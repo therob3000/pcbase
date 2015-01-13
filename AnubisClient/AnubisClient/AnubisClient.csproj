@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="RobotInterface.cs" />
     <Compile Include="Sock.cs" />
+    <Compile Include="Stoplight.cs" />
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>

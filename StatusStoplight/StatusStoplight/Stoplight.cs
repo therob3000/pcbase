@@ -6,43 +6,75 @@ using System.IO;
 using System.IO.Ports;
 using System.Threading;
 
-namespace StatusStoplight {
-	public class Stoplight {
-		public const string PORT_NAME = "COM10";
-		private SerialPort sport;
+namespace StatusStoplight
+{
+    public class Stoplight
+    {
+        public const string PORT_NAME = "COM3";
+        private SerialPort sport;
 
-		private enum col {r, g, b, s}
+        private enum col { r, g, b, s }
 
-		public Stoplight() {
-			sport = new SerialPort(PORT_NAME);
-			changeState(col.s);
-			Thread.Sleep(500); // 0.5 secs
-			sport.Close();
-		}
+        public Stoplight()
+        {
+            sport = new SerialPort(PORT_NAME);
+            changeState(col.s);
+            Thread.Sleep(500); // 0.5 secs
+        }
 
-		private void changeState(col c) {
-			sport.Close();
-			sport.Open();
-			if (c == col.r) sport.Write("0100");
-			if (c == col.g) sport.Write("0010");
-			if (c == col.b) sport.Write("0001");
-			if (c == col.s) sport.Write("1111");
-		}
+        private void changeState(col c)
+        {
+            sport.Open();
+            if (c == col.r) sport.Write(BitConverter.GetBytes(4), 0, 1);
+            if (c == col.g) sport.Write(BitConverter.GetBytes(1), 0, 1);
+            if (c == col.b) sport.Write(BitConverter.GetBytes(2),0,1);
+            if (c == col.s) sport.Write(BitConverter.GetBytes(15),0,1);
+            sport.Close();
+        }
 
-		public void red() {
-			changeState(col.r);
-		}
+        public void red()
+        {
+            changeState(col.r);
+        }
 
-		public void green() {
-			changeState(col.g);
-		}
+        public void green()
+        {
+            changeState(col.g);
+        }
 
-		public void yellow() {
-			changeState(col.b);
-		}
+        public void yellow()
+        {
+            changeState(col.b);
+        }
 
-		public void close() {
-			sport.Close();
-		}
-	}
+        public void close()
+        {
+            sport.Close();
+        }
+
+        private byte Bin_to_Byte(string Bin)
+        {
+            try
+            {
+                byte ByteVale = 0;
+                int strPos = Bin.Length;
+                int binPos = 1;
+
+                for (int i = strPos; i >= 1; i += -1)
+                {
+                    if (double.Parse(Bin.Substring((i - 1), 1)) != 0)
+                    {
+                        ByteVale += (byte)Math.Pow(2, (binPos - 1));
+                    }
+                    binPos++;
+                }
+                return ByteVale;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+    }
 }
