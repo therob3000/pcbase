@@ -15,6 +15,7 @@ namespace AnubisClient
         {
             tmr = new Timer(2000);
             tmr.Elapsed += new ElapsedEventHandler(reset);
+            tmr.Start();
         }
 
         private void reset(Object sender, ElapsedEventArgs e)
@@ -42,22 +43,24 @@ namespace AnubisClient
 
         public override void useNeutralSkeleton()
         {
-            renew();
+            // ignore
         }
 
         public override void useNullSkeleton()
         {
-            renew();
+            // ignore
         }
 
         public override void verifyRobot(EventHandler<GenericEventArgs<bool>> callback)
         {
             // Not Used
+            callback(this, new GenericEventArgs<bool>(false));
         }
 
         public override void requestData(string identifier, EventHandler<GenericEventArgs<string>> callback)
         {
             // Not Used
+            callback(this, new GenericEventArgs<string>(""));
         }
 
         public override void ping(EventHandler<GenericEventArgs<long>> callback)

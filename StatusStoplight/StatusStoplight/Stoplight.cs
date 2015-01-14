@@ -13,7 +13,7 @@ namespace StatusStoplight
         public const string PORT_NAME = "COM3";
         private SerialPort sport;
 
-        private enum col { r, g, b, s }
+        private enum col { r, g, y, s, c }
 
         public Stoplight()
         {
@@ -27,8 +27,9 @@ namespace StatusStoplight
             sport.Open();
             if (c == col.r) sport.Write(BitConverter.GetBytes(4), 0, 1);
             if (c == col.g) sport.Write(BitConverter.GetBytes(1), 0, 1);
-            if (c == col.b) sport.Write(BitConverter.GetBytes(2),0,1);
-            if (c == col.s) sport.Write(BitConverter.GetBytes(15),0,1);
+            if (c == col.y) sport.Write(BitConverter.GetBytes(2), 0, 1);
+            if (c == col.s) sport.Write(BitConverter.GetBytes(15),0, 1);
+            if (c == col.c) sport.Write(BitConverter.GetBytes(0), 0, 1);
             sport.Close();
         }
 
@@ -44,37 +45,13 @@ namespace StatusStoplight
 
         public void yellow()
         {
-            changeState(col.b);
+            changeState(col.y);
         }
 
         public void close()
         {
+            changeState(col.c);
             sport.Close();
-        }
-
-        private byte Bin_to_Byte(string Bin)
-        {
-            try
-            {
-                byte ByteVale = 0;
-                int strPos = Bin.Length;
-                int binPos = 1;
-
-                for (int i = strPos; i >= 1; i += -1)
-                {
-                    if (double.Parse(Bin.Substring((i - 1), 1)) != 0)
-                    {
-                        ByteVale += (byte)Math.Pow(2, (binPos - 1));
-                    }
-                    binPos++;
-                }
-                return ByteVale;
-
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
         }
     }
 }

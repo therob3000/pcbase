@@ -21,14 +21,6 @@ C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\bi
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe.config
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.ClientForm.resources
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.Properties.Resources.resources
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csproj.GenerateResource.Cache
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe.config
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.pdb
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe.config
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.pdb
@@ -40,6 +32,13 @@ C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\obj\x86\D
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\GenerateResource.write.1.tlog
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
 C:\Users\Kyltmer\Documents\Git Clones\pcbase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
-C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csprojResolveAssemblyReference.cache
 C:\Users\Timothy\Desktop\Anubis Source Code\PC Code\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.Robot_Form.resources
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe.config
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.exe
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\bin\Debug\AnubisClient.pdb
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.ClientForm.resources
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.Properties.Resources.resources
 C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.Robot_Form.resources
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.csproj.GenerateResource.Cache
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.exe
+C:\Users\admin\Desktop\Anubis Project\PCBase\AnubisClient\AnubisClient\obj\x86\Debug\AnubisClient.pdb
