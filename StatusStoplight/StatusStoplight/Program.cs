@@ -55,7 +55,10 @@ namespace StatusStoplight {
 			Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
 
             // Ready
+            Console.WriteLine("Server: " + server + ":" + port.ToString());
+            Console.WriteLine("Ident:  " + helo);
             Console.WriteLine("Ready.");
+            Console.WriteLine();
 
 			// Server connection Loop
 			while (true) {
