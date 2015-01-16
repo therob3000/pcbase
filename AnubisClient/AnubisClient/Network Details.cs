@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace AnubisClient
 {
-    public partial class NetworkView : Form
+    public partial class Network_Details : Form
     {
-        public NetworkView()
+        public Network_Details()
         {
             InitializeComponent();
         }

@@ -16,7 +16,7 @@ namespace AnubisClient
         public static void Initialize(ClientForm c) //Already being called by Program.cs
         {
             form = c;
-            
+            Engine = new BackgroundWorker();
             CommunicationsEngine.initialize();
             CommunicationsEngine.startServer();
             KinemEngine = new KinematicsEngine(form);

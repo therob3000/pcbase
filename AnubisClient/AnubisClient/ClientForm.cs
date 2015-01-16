@@ -15,58 +15,25 @@ namespace AnubisClient
     {
 
         RobotInterface ROI;
+        Robot_Form RF;
         public ClientForm()
         {
             this.IsMdiContainer = true;
+            RF = new Robot_Form();
+            RF.MdiParent = this;
             InitializeComponent();
-        }
-
-
-        private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
-
-        private void Start_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Stop_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-       
-        private void btn_ShutDownRobot_Click(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void ClientForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void commandViewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
             
         }
 
         public void set_gui_label_kinematics(string text)
         {
-            gui_joint_angles_label.Text = text;
+            
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void networkWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.ClickedItem.Text == "Kinect 1")
-            {
-                NetworkView view = new NetworkView();
-                view.Show();
-            }
+            RF.Show();
         }
-
         
     }
 }
