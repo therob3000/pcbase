@@ -13,7 +13,7 @@ namespace AnubisClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ClientForm c = new ClientForm();
-            ANUBISEngine.Initialize(c);
+            ANUBISEngine.Initialize();
             Application.Run(c);
         }
     }

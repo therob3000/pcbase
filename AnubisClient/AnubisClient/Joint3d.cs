@@ -7,26 +7,28 @@ namespace AnubisClient
 {
     public class Joint3d
     {
-        public double Pitch, Roll, Yaw;
-
-        public Joint3d()
+        private double pitch;
+        public double Pitch
         {
-            Pitch = Roll = Yaw = -1;
+            get { return pitch; }
+            set { pitch = value; }
         }
 
-        public void updateP(double _Pitch)
+        private double yaw;
+        public double Yaw
         {
-            Pitch = _Pitch;
+            get { return yaw; }
+            set { yaw = value; }
         }
 
-        public void updateY(double _Yaw)
+        private double roll;
+        public double Roll
         {
-            Yaw = _Yaw;
+            get { return roll; }
+            set { roll = value; }
         }
 
-        public void updateR(double _Roll)
-        {
-            Roll = _Roll;
-        }
+
+
     }
 }
