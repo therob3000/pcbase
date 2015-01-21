@@ -54,8 +54,13 @@ namespace AnubisClient {
 			return new Sock(sock.Accept(), rmtHost, port);
 		}
 
-		public void sendline(string line) {
-			sock.Send(ASCIIEncoding.ASCII.GetBytes(line + "\n")); // Append a new-line when sending
+        public void sendline(string line) {
+            try
+            {
+                sock.Send(ASCIIEncoding.ASCII.GetBytes(line + "\n")); // Append a new-line when sending
+            }
+            catch (Exception ex){}
+			
 		}
 
 		public string readline() { // blocks
@@ -64,7 +69,7 @@ namespace AnubisClient {
 				byte[] bytes = new byte[1024];
 				int bytesrec = sock.Receive(bytes);
 				message += Encoding.ASCII.GetString(bytes, 0, bytesrec);
-				if (message.IndexOf("\n") > 1) break; // Use new-line to identify end-of-message
+				if (message.IndexOf("\n") >= 0) break; // Use new-line to identify end-of-message
 			}
 			message = message.Substring(0, message.Length - 1); // Strip new-line when receiving
 			return message;

@@ -88,11 +88,13 @@ namespace StatusStoplight {
 
 		private static void processNet(Sock s) {
             Console.WriteLine("Idle");
+            string prevLine = "";
 			stl.yellow();
 			try {
 				while (true) {
 					string line = s.readline();
-					if (line == "s") {
+                    Console.WriteLine(line);
+					if (line == "s" && prevLine != "s" ) {
                         Console.WriteLine("Active");
 						stl.green();
 					}
@@ -109,9 +111,12 @@ namespace StatusStoplight {
 					else {
 						s.sendline("err");
 					}
+                    prevLine = line;
 				}
 			}
-			catch { }
+			catch {
+                int asdfsadf;
+            }
 		}
 	}
 }
