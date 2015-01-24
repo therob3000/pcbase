@@ -14,6 +14,7 @@ namespace AnubisClient
         private Point3f[] JointVals;
         private Joint3d[] JointAngles;
         private ClientForm form;
+        private GestureEngine gesture_eng;
 
         public KinematicsEngine(ClientForm c)
         {
@@ -27,7 +28,7 @@ namespace AnubisClient
             KinectUpdater.DoWork += KinectUpdater_DoWork;
             KinectUpdater.ProgressChanged += KinectUpdater_ProgressChanged;
             KinectUpdater.RunWorkerCompleted += KinectUpdater_RunWorkerCompleted;
-
+            gesture_eng = new GestureEngine();
         }
         #region KinematicCode
         private void KinectUpdater_DoWork(object sender, DoWorkEventArgs e)

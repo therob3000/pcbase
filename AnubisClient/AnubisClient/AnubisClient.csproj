@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="CommunicationsEngine.cs" />
     <Compile Include="GenericEventArgs.cs" />
+    <Compile Include="GestureEngine.cs" />
     <Compile Include="Hardware Details.cs">
       <SubType>Form</SubType>
     </Compile>
