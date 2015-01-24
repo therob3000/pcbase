@@ -79,7 +79,7 @@ namespace StatusStoplight
                 byte[] bytes = new byte[1024];
                 int bytesrec = sock.Receive(bytes);
                 message += Encoding.ASCII.GetString(bytes, 0, bytesrec);
-                if (message.IndexOf("\n") > 1) break;
+                if (message.IndexOf("\n") >= 0) break;
             }
             message = message.Substring(0, message.Length - 1);
             return message;
